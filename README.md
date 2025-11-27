@@ -9,4 +9,4 @@ All you need is `pip install kivy`, preferably kivy==1.9.1
 For Android build: buildozer<br>
 For iOS build: pyobjus
 
-<img width="2896" height="1002" alt="stopwatch-explanation" src="https://github.com/user-attachments/assets/77413726-ddd3-455d-b2a1-88a6599831d9" />
+<img width="2896" height="1002" alt="stopwatch-explanation" src="https://github.com/user-attachments/assets/ad7570dd-e09e-4069-a476-d7409d0351ce" />

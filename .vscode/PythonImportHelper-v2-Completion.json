@@ -1,0 +1,1536 @@
+[
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Screen",
+        "importPath": "kivy.uix.screenmanager",
+        "description": "kivy.uix.screenmanager",
+        "isExtraImport": true,
+        "detail": "kivy.uix.screenmanager",
+        "documentation": {}
+    },
+    {
+        "label": "Screen",
+        "importPath": "kivy.uix.screenmanager",
+        "description": "kivy.uix.screenmanager",
+        "isExtraImport": true,
+        "detail": "kivy.uix.screenmanager",
+        "documentation": {}
+    },
+    {
+        "label": "ScreenManager",
+        "importPath": "kivy.uix.screenmanager",
+        "description": "kivy.uix.screenmanager",
+        "isExtraImport": true,
+        "detail": "kivy.uix.screenmanager",
+        "documentation": {}
+    },
+    {
+        "label": "BoxLayout",
+        "importPath": "kivy.uix.boxlayout",
+        "description": "kivy.uix.boxlayout",
+        "isExtraImport": true,
+        "detail": "kivy.uix.boxlayout",
+        "documentation": {}
+    },
+    {
+        "label": "BoxLayout",
+        "importPath": "kivy.uix.boxlayout",
+        "description": "kivy.uix.boxlayout",
+        "isExtraImport": true,
+        "detail": "kivy.uix.boxlayout",
+        "documentation": {}
+    },
+    {
+        "label": "BoxLayout",
+        "importPath": "kivy.uix.boxlayout",
+        "description": "kivy.uix.boxlayout",
+        "isExtraImport": true,
+        "detail": "kivy.uix.boxlayout",
+        "documentation": {}
+    },
+    {
+        "label": "BoxLayout",
+        "importPath": "kivy.uix.boxlayout",
+        "description": "kivy.uix.boxlayout",
+        "isExtraImport": true,
+        "detail": "kivy.uix.boxlayout",
+        "documentation": {}
+    },
+    {
+        "label": "BoxLayout",
+        "importPath": "kivy.uix.boxlayout",
+        "description": "kivy.uix.boxlayout",
+        "isExtraImport": true,
+        "detail": "kivy.uix.boxlayout",
+        "documentation": {}
+    },
+    {
+        "label": "GridLayout",
+        "importPath": "kivy.uix.gridlayout",
+        "description": "kivy.uix.gridlayout",
+        "isExtraImport": true,
+        "detail": "kivy.uix.gridlayout",
+        "documentation": {}
+    },
+    {
+        "label": "GridLayout",
+        "importPath": "kivy.uix.gridlayout",
+        "description": "kivy.uix.gridlayout",
+        "isExtraImport": true,
+        "detail": "kivy.uix.gridlayout",
+        "documentation": {}
+    },
+    {
+        "label": "GridLayout",
+        "importPath": "kivy.uix.gridlayout",
+        "description": "kivy.uix.gridlayout",
+        "isExtraImport": true,
+        "detail": "kivy.uix.gridlayout",
+        "documentation": {}
+    },
+    {
+        "label": "ScrollView",
+        "importPath": "kivy.uix.scrollview",
+        "description": "kivy.uix.scrollview",
+        "isExtraImport": true,
+        "detail": "kivy.uix.scrollview",
+        "documentation": {}
+    },
+    {
+        "label": "ScrollView",
+        "importPath": "kivy.uix.scrollview",
+        "description": "kivy.uix.scrollview",
+        "isExtraImport": true,
+        "detail": "kivy.uix.scrollview",
+        "documentation": {}
+    },
+    {
+        "label": "ScrollView",
+        "importPath": "kivy.uix.scrollview",
+        "description": "kivy.uix.scrollview",
+        "isExtraImport": true,
+        "detail": "kivy.uix.scrollview",
+        "documentation": {}
+    },
+    {
+        "label": "Label",
+        "importPath": "kivy.uix.label",
+        "description": "kivy.uix.label",
+        "isExtraImport": true,
+        "detail": "kivy.uix.label",
+        "documentation": {}
+    },
+    {
+        "label": "Label",
+        "importPath": "kivy.uix.label",
+        "description": "kivy.uix.label",
+        "isExtraImport": true,
+        "detail": "kivy.uix.label",
+        "documentation": {}
+    },
+    {
+        "label": "Label",
+        "importPath": "kivy.uix.label",
+        "description": "kivy.uix.label",
+        "isExtraImport": true,
+        "detail": "kivy.uix.label",
+        "documentation": {}
+    },
+    {
+        "label": "Label",
+        "importPath": "kivy.uix.label",
+        "description": "kivy.uix.label",
+        "isExtraImport": true,
+        "detail": "kivy.uix.label",
+        "documentation": {}
+    },
+    {
+        "label": "Label",
+        "importPath": "kivy.uix.label",
+        "description": "kivy.uix.label",
+        "isExtraImport": true,
+        "detail": "kivy.uix.label",
+        "documentation": {}
+    },
+    {
+        "label": "Widget",
+        "importPath": "kivy.uix.widget",
+        "description": "kivy.uix.widget",
+        "isExtraImport": true,
+        "detail": "kivy.uix.widget",
+        "documentation": {}
+    },
+    {
+        "label": "Widget",
+        "importPath": "kivy.uix.widget",
+        "description": "kivy.uix.widget",
+        "isExtraImport": true,
+        "detail": "kivy.uix.widget",
+        "documentation": {}
+    },
+    {
+        "label": "Widget",
+        "importPath": "kivy.uix.widget",
+        "description": "kivy.uix.widget",
+        "isExtraImport": true,
+        "detail": "kivy.uix.widget",
+        "documentation": {}
+    },
+    {
+        "label": "Widget",
+        "importPath": "kivy.uix.widget",
+        "description": "kivy.uix.widget",
+        "isExtraImport": true,
+        "detail": "kivy.uix.widget",
+        "documentation": {}
+    },
+    {
+        "label": "TextInput",
+        "importPath": "kivy.uix.textinput",
+        "description": "kivy.uix.textinput",
+        "isExtraImport": true,
+        "detail": "kivy.uix.textinput",
+        "documentation": {}
+    },
+    {
+        "label": "TextInput",
+        "importPath": "kivy.uix.textinput",
+        "description": "kivy.uix.textinput",
+        "isExtraImport": true,
+        "detail": "kivy.uix.textinput",
+        "documentation": {}
+    },
+    {
+        "label": "TextInput",
+        "importPath": "kivy.uix.textinput",
+        "description": "kivy.uix.textinput",
+        "isExtraImport": true,
+        "detail": "kivy.uix.textinput",
+        "documentation": {}
+    },
+    {
+        "label": "Spinner",
+        "importPath": "kivy.uix.spinner",
+        "description": "kivy.uix.spinner",
+        "isExtraImport": true,
+        "detail": "kivy.uix.spinner",
+        "documentation": {}
+    },
+    {
+        "label": "ColorPicker",
+        "importPath": "kivy.uix.colorpicker",
+        "description": "kivy.uix.colorpicker",
+        "isExtraImport": true,
+        "detail": "kivy.uix.colorpicker",
+        "documentation": {}
+    },
+    {
+        "label": "CheckBox",
+        "importPath": "kivy.uix.checkbox",
+        "description": "kivy.uix.checkbox",
+        "isExtraImport": true,
+        "detail": "kivy.uix.checkbox",
+        "documentation": {}
+    },
+    {
+        "label": "Popup",
+        "importPath": "kivy.uix.popup",
+        "description": "kivy.uix.popup",
+        "isExtraImport": true,
+        "detail": "kivy.uix.popup",
+        "documentation": {}
+    },
+    {
+        "label": "Popup",
+        "importPath": "kivy.uix.popup",
+        "description": "kivy.uix.popup",
+        "isExtraImport": true,
+        "detail": "kivy.uix.popup",
+        "documentation": {}
+    },
+    {
+        "label": "Popup",
+        "importPath": "kivy.uix.popup",
+        "description": "kivy.uix.popup",
+        "isExtraImport": true,
+        "detail": "kivy.uix.popup",
+        "documentation": {}
+    },
+    {
+        "label": "Color",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Rectangle",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Ellipse",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "RoundedRectangle",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Color",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Rectangle",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Ellipse",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Color",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "RoundedRectangle",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Color",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Rectangle",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Color",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Rectangle",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "Ellipse",
+        "importPath": "kivy.graphics",
+        "description": "kivy.graphics",
+        "isExtraImport": true,
+        "detail": "kivy.graphics",
+        "documentation": {}
+    },
+    {
+        "label": "ACCENT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DANGER",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_ARROW_LEFT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FOLDER_PLUS",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_PEN",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_PLUS",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_TAGS",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_TRASH",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "MUTED",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "PRIMARY",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "SURFACE_LIGHT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "TEXT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ACCENT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DANGER",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_BARS",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_PEN",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_PLAY",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_STOP",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_TAGS",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "MUTED",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "SURFACE_LIGHT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "TEXT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT_FILE",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT_URL",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ASPECT_RATIO",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "SURFACE_LIGHT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "TEXT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ACCENT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DANGER",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "SURFACE_LIGHT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "PRIMARY",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "TEXT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "MUTED",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ACCENT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DANGER",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "PRIMARY",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "SURFACE_LIGHT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_TRASH",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_CLOCK",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FLAG_CHECKERED",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_CALENDAR",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "SURFACE_LIGHT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "TEXT",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DESKTOP_RESOLUTION",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "RButton",
+        "importPath": "widgets",
+        "description": "widgets",
+        "isExtraImport": true,
+        "detail": "widgets",
+        "documentation": {}
+    },
+    {
+        "label": "create_info_dialog",
+        "importPath": "widgets",
+        "description": "widgets",
+        "isExtraImport": true,
+        "detail": "widgets",
+        "documentation": {}
+    },
+    {
+        "label": "create_two_button_dialog",
+        "importPath": "widgets",
+        "description": "widgets",
+        "isExtraImport": true,
+        "detail": "widgets",
+        "documentation": {}
+    },
+    {
+        "label": "create_confirmation_dialog",
+        "importPath": "widgets",
+        "description": "widgets",
+        "isExtraImport": true,
+        "detail": "widgets",
+        "documentation": {}
+    },
+    {
+        "label": "RButton",
+        "importPath": "widgets",
+        "description": "widgets",
+        "isExtraImport": true,
+        "detail": "widgets",
+        "documentation": {}
+    },
+    {
+        "label": "LabelSpinner",
+        "importPath": "widgets",
+        "description": "widgets",
+        "isExtraImport": true,
+        "detail": "widgets",
+        "documentation": {}
+    },
+    {
+        "label": "SlideMenu",
+        "importPath": "widgets",
+        "description": "widgets",
+        "isExtraImport": true,
+        "detail": "widgets",
+        "documentation": {}
+    },
+    {
+        "label": "Clock",
+        "importPath": "kivy.clock",
+        "description": "kivy.clock",
+        "isExtraImport": true,
+        "detail": "kivy.clock",
+        "documentation": {}
+    },
+    {
+        "label": "format_time",
+        "importPath": "utils",
+        "description": "utils",
+        "isExtraImport": true,
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "CSVExporter",
+        "importPath": "utils",
+        "description": "utils",
+        "isExtraImport": true,
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "enforce_aspect_ratio",
+        "importPath": "utils",
+        "description": "utils",
+        "isExtraImport": true,
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "download_font_awesome",
+        "importPath": "utils",
+        "description": "utils",
+        "isExtraImport": true,
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "StateManager",
+        "importPath": "managers",
+        "description": "managers",
+        "isExtraImport": true,
+        "detail": "managers",
+        "documentation": {}
+    },
+    {
+        "label": "LabelManager",
+        "importPath": "managers",
+        "description": "managers",
+        "isExtraImport": true,
+        "detail": "managers",
+        "documentation": {}
+    },
+    {
+        "label": "csv",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "csv",
+        "description": "csv",
+        "detail": "csv",
+        "documentation": {}
+    },
+    {
+        "label": "platform",
+        "importPath": "kivy.utils",
+        "description": "kivy.utils",
+        "isExtraImport": true,
+        "detail": "kivy.utils",
+        "documentation": {}
+    },
+    {
+        "label": "platform",
+        "importPath": "kivy.utils",
+        "description": "kivy.utils",
+        "isExtraImport": true,
+        "detail": "kivy.utils",
+        "documentation": {}
+    },
+    {
+        "label": "urllib.request",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "urllib.request",
+        "description": "urllib.request",
+        "detail": "urllib.request",
+        "documentation": {}
+    },
+    {
+        "label": "LabelBase",
+        "importPath": "kivy.core.text",
+        "description": "kivy.core.text",
+        "isExtraImport": true,
+        "detail": "kivy.core.text",
+        "documentation": {}
+    },
+    {
+        "label": "Button",
+        "importPath": "kivy.uix.button",
+        "description": "kivy.uix.button",
+        "isExtraImport": true,
+        "detail": "kivy.uix.button",
+        "documentation": {}
+    },
+    {
+        "label": "ModalView",
+        "importPath": "kivy.uix.modalview",
+        "description": "kivy.uix.modalview",
+        "isExtraImport": true,
+        "detail": "kivy.uix.modalview",
+        "documentation": {}
+    },
+    {
+        "label": "Animation",
+        "importPath": "kivy.animation",
+        "description": "kivy.animation",
+        "isExtraImport": true,
+        "detail": "kivy.animation",
+        "documentation": {}
+    },
+    {
+        "label": "ButtonBehavior",
+        "importPath": "kivy.uix.behaviors",
+        "description": "kivy.uix.behaviors",
+        "isExtraImport": true,
+        "detail": "kivy.uix.behaviors",
+        "documentation": {}
+    },
+    {
+        "label": "DropDown",
+        "importPath": "kivy.uix.dropdown",
+        "description": "kivy.uix.dropdown",
+        "isExtraImport": true,
+        "detail": "kivy.uix.dropdown",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "kivy.config",
+        "description": "kivy.config",
+        "isExtraImport": true,
+        "detail": "kivy.config",
+        "documentation": {}
+    },
+    {
+        "label": "App",
+        "importPath": "kivy.app",
+        "description": "kivy.app",
+        "isExtraImport": true,
+        "detail": "kivy.app",
+        "documentation": {}
+    },
+    {
+        "label": "Window",
+        "importPath": "kivy.core.window",
+        "description": "kivy.core.window",
+        "isExtraImport": true,
+        "detail": "kivy.core.window",
+        "documentation": {}
+    },
+    {
+        "label": "TimerScreen",
+        "importPath": "screens",
+        "description": "screens",
+        "isExtraImport": true,
+        "detail": "screens",
+        "documentation": {}
+    },
+    {
+        "label": "LabelsScreen",
+        "importPath": "screens",
+        "description": "screens",
+        "isExtraImport": true,
+        "detail": "screens",
+        "documentation": {}
+    },
+    {
+        "label": "LabelManager",
+        "kind": 6,
+        "importPath": "src.managers.label_manager",
+        "description": "src.managers.label_manager",
+        "peekOfCode": "class LabelManager:\n    \"\"\"Manages label groups and their state with persistent storage.\n    A label is a categorization marker for timer laps, containing:\n    - name: Display name\n    - color: RGBA color tuple\n    - desc: Optional description\n    - is_default: Whether this is the immutable default label\n    - auto_startstop: Whether to automatically toggle start/stop on lap\n    Labels are organized into groups, allowing different label sets\n    for different activities or projects.",
+        "detail": "src.managers.label_manager",
+        "documentation": {}
+    },
+    {
+        "label": "StateManager",
+        "kind": 6,
+        "importPath": "src.managers.state_manager",
+        "description": "src.managers.state_manager",
+        "peekOfCode": "class StateManager:\n    \"\"\"Manages timer state persistence and save states.\n    Handles two types of state storage:\n    1. Current state: Auto-saved timer state that persists across app restarts\n    2. Named saves: User-created snapshots of timer state\n    Attributes:\n        STATES_DIR: Directory for current state storage\n        SAVES_DIR: Directory for named save states\n    \"\"\"\n    STATES_DIR = 'states'",
+        "detail": "src.managers.state_manager",
+        "documentation": {}
+    },
+    {
+        "label": "LabelsScreen",
+        "kind": 6,
+        "importPath": "src.screens.labels_screen",
+        "description": "src.screens.labels_screen",
+        "peekOfCode": "class LabelsScreen(Screen):\n    \"\"\"Screen for managing labels and label groups.\n    Provides a comprehensive interface for organizing labels:\n    - Create/edit/delete individual labels\n    - Manage label groups for different activities\n    - Configure label colors and descriptions\n    - Set up auto-start/stop functionality\n    Attributes:\n        lm: LabelManager instance\n        timer_screen: Reference to TimerScreen for updating laps",
+        "detail": "src.screens.labels_screen",
+        "documentation": {}
+    },
+    {
+        "label": "TimerScreen",
+        "kind": 6,
+        "importPath": "src.screens.timer_screen",
+        "description": "src.screens.timer_screen",
+        "peekOfCode": "class TimerScreen(Screen):\n    \"\"\"Main timer screen with stopwatch and lap recording.\n    This screen provides the primary stopwatch interface with features:\n    - Start/stop timer with millisecond precision\n    - Lap recording with customizable labels\n    - Automatic start/stop tracking for labels\n    - Notes for individual laps\n    - Persistent state across app restarts\n    - Named save states for different sessions\n    Attributes:",
+        "detail": "src.screens.timer_screen",
+        "documentation": {}
+    },
+    {
+        "label": "CSVExporter",
+        "kind": 6,
+        "importPath": "src.utils.export",
+        "description": "src.utils.export",
+        "peekOfCode": "class CSVExporter:\n    \"\"\"Handles CSV export of timer sessions with platform-specific saving.\n    Supports exporting lap data with labels, times, and metadata to CSV format.\n    Handles different save mechanisms for Desktop, Android, and iOS platforms.\n    \"\"\"\n    def __init__(self):\n        \"\"\"Initialize the CSV exporter.\"\"\"\n        self.exports_dir = 'exports'\n        os.makedirs(self.exports_dir, exist_ok=True)\n    def export_save_state(self, state_name: str, save_data: dict,",
+        "detail": "src.utils.export",
+        "documentation": {}
+    },
+    {
+        "label": "download_font_awesome",
+        "kind": 2,
+        "importPath": "src.utils.font_loader",
+        "description": "src.utils.font_loader",
+        "peekOfCode": "def download_font_awesome() -> bool:\n    \"\"\"Download and register the Font Awesome font.\n    This function performs two operations:\n    1. Downloads the Font Awesome TTF file from CDN if not already present\n    2. Registers the font with Kivy's text rendering system\n    The font is downloaded to the current working directory and registered\n    under the name defined in constants.ICON_FONT.\n    Returns:\n        True if font was successfully loaded/registered, False on error\n    Note:",
+        "detail": "src.utils.font_loader",
+        "documentation": {}
+    },
+    {
+        "label": "format_time",
+        "kind": 2,
+        "importPath": "src.utils.formatting",
+        "description": "src.utils.formatting",
+        "peekOfCode": "def format_time(seconds: float) -> str:\n    \"\"\"Convert seconds to a formatted time string.\n    Formats time in the pattern \"M:SS.mmm\" where:\n    - M = minutes (no leading zero)\n    - SS = seconds (always 2 digits)\n    - mmm = milliseconds (always 3 digits)\n    Args:\n        seconds: Time value in seconds (can include fractional seconds)\n    Returns:\n        Formatted time string, e.g. \"1:23.456\" or \"0:05.789\"",
+        "detail": "src.utils.formatting",
+        "documentation": {}
+    },
+    {
+        "label": "enforce_aspect_ratio",
+        "kind": 2,
+        "importPath": "src.utils.ui_helpers",
+        "description": "src.utils.ui_helpers",
+        "peekOfCode": "def enforce_aspect_ratio(window, width: int, height: int) -> None:\n    \"\"\"Maintain a fixed aspect ratio when the window is resized.\n    This function is typically bound to the window's on_resize event\n    to ensure the application maintains its intended aspect ratio\n    regardless of how the user attempts to resize the window.\n    The function adjusts either width or height (whichever results in\n    a smaller window) to match the target aspect ratio defined in constants.\n    Args:\n        window: Kivy Window instance (not used directly, but required by event)\n        width: Requested window width in pixels",
+        "detail": "src.utils.ui_helpers",
+        "documentation": {}
+    },
+    {
+        "label": "RButton",
+        "kind": 6,
+        "importPath": "src.widgets.buttons",
+        "description": "src.widgets.buttons",
+        "peekOfCode": "class RButton(Button):\n    \"\"\"Rounded button with customizable color.\n    A button widget that renders with rounded corners and supports\n    dynamic color changes. The button's background is drawn using\n    canvas instructions for better control over appearance.\n    Attributes:\n        _color: Current RGBA color tuple\n        _radius: Corner radius in pixels\n        _color_instr: Canvas Color instruction for updates\n        _bg: Canvas RoundedRectangle instruction",
+        "detail": "src.widgets.buttons",
+        "documentation": {}
+    },
+    {
+        "label": "create_text_input_dialog",
+        "kind": 2,
+        "importPath": "src.widgets.dialogs",
+        "description": "src.widgets.dialogs",
+        "peekOfCode": "def create_text_input_dialog(\n    title: str,\n    prompt: str,\n    initial_text: str = \"\",\n    on_save: Optional[Callable[[str], None]] = None,\n    hint_text: str = \"\",\n    save_button_text: str = \"Save\",\n    multiline: bool = False\n) -> Popup:\n    \"\"\"Create a dialog with a text input field and save button.",
+        "detail": "src.widgets.dialogs",
+        "documentation": {}
+    },
+    {
+        "label": "create_confirmation_dialog",
+        "kind": 2,
+        "importPath": "src.widgets.dialogs",
+        "description": "src.widgets.dialogs",
+        "peekOfCode": "def create_confirmation_dialog(\n    title: str,\n    message: str,\n    on_confirm: Optional[Callable] = None,\n    confirm_text: str = \"Confirm\",\n    cancel_text: str = \"Cancel\",\n    danger: bool = False\n) -> Popup:\n    \"\"\"Create a yes/no confirmation dialog.\n    Args:",
+        "detail": "src.widgets.dialogs",
+        "documentation": {}
+    },
+    {
+        "label": "create_info_dialog",
+        "kind": 2,
+        "importPath": "src.widgets.dialogs",
+        "description": "src.widgets.dialogs",
+        "peekOfCode": "def create_info_dialog(title: str, message: str, button_text: str = \"OK\") -> Popup:\n    \"\"\"Create a simple informational dialog with one button.\n    Args:\n        title: Dialog window title\n        message: Information message text\n        button_text: Label for the dismiss button\n    Returns:\n        Configured Popup instance (not yet opened)\n    \"\"\"\n    content = BoxLayout(orientation=\"vertical\", spacing=12, padding=12)",
+        "detail": "src.widgets.dialogs",
+        "documentation": {}
+    },
+    {
+        "label": "create_two_button_dialog",
+        "kind": 2,
+        "importPath": "src.widgets.dialogs",
+        "description": "src.widgets.dialogs",
+        "peekOfCode": "def create_two_button_dialog(\n    title: str,\n    prompt: str,\n    input_text: str = \"\",\n    left_button_text: str = \"Delete\",\n    right_button_text: str = \"Save\",\n    on_left: Optional[Callable] = None,\n    on_right: Optional[Callable[[str], None]] = None,\n    left_danger: bool = True\n) -> Popup:",
+        "detail": "src.widgets.dialogs",
+        "documentation": {}
+    },
+    {
+        "label": "SlideMenu",
+        "kind": 6,
+        "importPath": "src.widgets.menus",
+        "description": "src.widgets.menus",
+        "peekOfCode": "class SlideMenu(ModalView):\n    \"\"\"Slide-in menu from left side for save state management.\n    A modal overlay that slides in from the left, displaying a list\n    of saved timer states with options to load, export, or delete them.\n    Attributes:\n        timer_screen: Reference to TimerScreen instance\n        menu_container: Main container for menu content\n        states_grid: Grid layout containing save state entries\n    \"\"\"\n    def __init__(self, timer_screen, **kwargs):",
+        "detail": "src.widgets.menus",
+        "documentation": {}
+    },
+    {
+        "label": "LabelSpinner",
+        "kind": 6,
+        "importPath": "src.widgets.spinners",
+        "description": "src.widgets.spinners",
+        "peekOfCode": "class LabelSpinner(ButtonBehavior, BoxLayout):\n    \"\"\"Dropdown button for label selection with color indicators.\n    A custom spinner widget that displays labels with their associated\n    colors. When clicked, shows a dropdown menu of all available labels\n    in the current group.\n    Attributes:\n        lap: Reference to the lap dictionary (modified in-place)\n        lm: LabelManager instance for accessing label data\n        on_change: Optional callback function called when label changes\n        dropdown: DropDown widget instance",
+        "detail": "src.widgets.spinners",
+        "documentation": {}
+    },
+    {
+        "label": "ASPECT_RATIO",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ASPECT_RATIO = 9 / 16\n\"\"\"float: Target aspect ratio for the application window (9:16 portrait).\"\"\"\nDESKTOP_RESOLUTION = (545, 968)\n\"\"\"tuple[int, int]: Default window resolution for desktop platforms.\"\"\"\n# ============================================================================\n# Theme Colors (RGBA format: 0.0 to 1.0)\n# ============================================================================\nPRIMARY = (0.25, 0.5, 0.9, 1)\n\"\"\"tuple: Primary brand color - blue.\"\"\"\nACCENT = (0.2, 0.7, 0.3, 1)",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "DESKTOP_RESOLUTION",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "DESKTOP_RESOLUTION = (545, 968)\n\"\"\"tuple[int, int]: Default window resolution for desktop platforms.\"\"\"\n# ============================================================================\n# Theme Colors (RGBA format: 0.0 to 1.0)\n# ============================================================================\nPRIMARY = (0.25, 0.5, 0.9, 1)\n\"\"\"tuple: Primary brand color - blue.\"\"\"\nACCENT = (0.2, 0.7, 0.3, 1)\n\"\"\"tuple: Accent color for positive actions - green.\"\"\"\nDANGER = (0.8, 0.25, 0.25, 1)",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "PRIMARY",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "PRIMARY = (0.25, 0.5, 0.9, 1)\n\"\"\"tuple: Primary brand color - blue.\"\"\"\nACCENT = (0.2, 0.7, 0.3, 1)\n\"\"\"tuple: Accent color for positive actions - green.\"\"\"\nDANGER = (0.8, 0.25, 0.25, 1)\n\"\"\"tuple: Danger color for destructive actions - red.\"\"\"\nSURFACE = (0.16, 0.16, 0.16, 1)\n\"\"\"tuple: Dark surface background color.\"\"\"\nSURFACE_LIGHT = (0.22, 0.22, 0.22, 1)\n\"\"\"tuple: Lighter surface color for elevated elements.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ACCENT",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ACCENT = (0.2, 0.7, 0.3, 1)\n\"\"\"tuple: Accent color for positive actions - green.\"\"\"\nDANGER = (0.8, 0.25, 0.25, 1)\n\"\"\"tuple: Danger color for destructive actions - red.\"\"\"\nSURFACE = (0.16, 0.16, 0.16, 1)\n\"\"\"tuple: Dark surface background color.\"\"\"\nSURFACE_LIGHT = (0.22, 0.22, 0.22, 1)\n\"\"\"tuple: Lighter surface color for elevated elements.\"\"\"\nTEXT = (0.92, 0.92, 0.92, 1)\n\"\"\"tuple: Primary text color - near white.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "DANGER",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "DANGER = (0.8, 0.25, 0.25, 1)\n\"\"\"tuple: Danger color for destructive actions - red.\"\"\"\nSURFACE = (0.16, 0.16, 0.16, 1)\n\"\"\"tuple: Dark surface background color.\"\"\"\nSURFACE_LIGHT = (0.22, 0.22, 0.22, 1)\n\"\"\"tuple: Lighter surface color for elevated elements.\"\"\"\nTEXT = (0.92, 0.92, 0.92, 1)\n\"\"\"tuple: Primary text color - near white.\"\"\"\nMUTED = (0.7, 0.7, 0.7, 1)\n\"\"\"tuple: Muted text color for secondary information.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "SURFACE",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "SURFACE = (0.16, 0.16, 0.16, 1)\n\"\"\"tuple: Dark surface background color.\"\"\"\nSURFACE_LIGHT = (0.22, 0.22, 0.22, 1)\n\"\"\"tuple: Lighter surface color for elevated elements.\"\"\"\nTEXT = (0.92, 0.92, 0.92, 1)\n\"\"\"tuple: Primary text color - near white.\"\"\"\nMUTED = (0.7, 0.7, 0.7, 1)\n\"\"\"tuple: Muted text color for secondary information.\"\"\"\n# ============================================================================\n# Font Awesome Icons (Font Awesome 6 Solid)",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "SURFACE_LIGHT",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "SURFACE_LIGHT = (0.22, 0.22, 0.22, 1)\n\"\"\"tuple: Lighter surface color for elevated elements.\"\"\"\nTEXT = (0.92, 0.92, 0.92, 1)\n\"\"\"tuple: Primary text color - near white.\"\"\"\nMUTED = (0.7, 0.7, 0.7, 1)\n\"\"\"tuple: Muted text color for secondary information.\"\"\"\n# ============================================================================\n# Font Awesome Icons (Font Awesome 6 Solid)\n# ============================================================================\nICON_GEAR = \"\\uf013\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "TEXT",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "TEXT = (0.92, 0.92, 0.92, 1)\n\"\"\"tuple: Primary text color - near white.\"\"\"\nMUTED = (0.7, 0.7, 0.7, 1)\n\"\"\"tuple: Muted text color for secondary information.\"\"\"\n# ============================================================================\n# Font Awesome Icons (Font Awesome 6 Solid)\n# ============================================================================\nICON_GEAR = \"\\uf013\"\n\"\"\"str: Settings/gear icon.\"\"\"\nICON_TAGS = \"\\uf02c\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "MUTED",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "MUTED = (0.7, 0.7, 0.7, 1)\n\"\"\"tuple: Muted text color for secondary information.\"\"\"\n# ============================================================================\n# Font Awesome Icons (Font Awesome 6 Solid)\n# ============================================================================\nICON_GEAR = \"\\uf013\"\n\"\"\"str: Settings/gear icon.\"\"\"\nICON_TAGS = \"\\uf02c\"\n\"\"\"str: Tags/labels icon.\"\"\"\nICON_ARROW_LEFT = \"\\uf060\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_GEAR",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_GEAR = \"\\uf013\"\n\"\"\"str: Settings/gear icon.\"\"\"\nICON_TAGS = \"\\uf02c\"\n\"\"\"str: Tags/labels icon.\"\"\"\nICON_ARROW_LEFT = \"\\uf060\"\n\"\"\"str: Left arrow for back navigation.\"\"\"\nICON_PEN = \"\\uf304\"\n\"\"\"str: Pen/edit icon.\"\"\"\nICON_PLUS = \"\\u002b\"\n\"\"\"str: Plus sign for adding items.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_TAGS",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_TAGS = \"\\uf02c\"\n\"\"\"str: Tags/labels icon.\"\"\"\nICON_ARROW_LEFT = \"\\uf060\"\n\"\"\"str: Left arrow for back navigation.\"\"\"\nICON_PEN = \"\\uf304\"\n\"\"\"str: Pen/edit icon.\"\"\"\nICON_PLUS = \"\\u002b\"\n\"\"\"str: Plus sign for adding items.\"\"\"\nICON_BARS = \"\\uf0c9\"\n\"\"\"str: Hamburger menu icon.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_ARROW_LEFT",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_ARROW_LEFT = \"\\uf060\"\n\"\"\"str: Left arrow for back navigation.\"\"\"\nICON_PEN = \"\\uf304\"\n\"\"\"str: Pen/edit icon.\"\"\"\nICON_PLUS = \"\\u002b\"\n\"\"\"str: Plus sign for adding items.\"\"\"\nICON_BARS = \"\\uf0c9\"\n\"\"\"str: Hamburger menu icon.\"\"\"\nICON_TRASH = \"\\uf1f8\"\n\"\"\"str: Trash/delete icon.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_PEN",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_PEN = \"\\uf304\"\n\"\"\"str: Pen/edit icon.\"\"\"\nICON_PLUS = \"\\u002b\"\n\"\"\"str: Plus sign for adding items.\"\"\"\nICON_BARS = \"\\uf0c9\"\n\"\"\"str: Hamburger menu icon.\"\"\"\nICON_TRASH = \"\\uf1f8\"\n\"\"\"str: Trash/delete icon.\"\"\"\nICON_FOLDER_PLUS = \"\\uf65e\"\n\"\"\"str: Folder with plus sign.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_PLUS",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_PLUS = \"\\u002b\"\n\"\"\"str: Plus sign for adding items.\"\"\"\nICON_BARS = \"\\uf0c9\"\n\"\"\"str: Hamburger menu icon.\"\"\"\nICON_TRASH = \"\\uf1f8\"\n\"\"\"str: Trash/delete icon.\"\"\"\nICON_FOLDER_PLUS = \"\\uf65e\"\n\"\"\"str: Folder with plus sign.\"\"\"\nICON_PLAY = \"\\uf04b\"\n\"\"\"str: Play/start icon.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_BARS",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_BARS = \"\\uf0c9\"\n\"\"\"str: Hamburger menu icon.\"\"\"\nICON_TRASH = \"\\uf1f8\"\n\"\"\"str: Trash/delete icon.\"\"\"\nICON_FOLDER_PLUS = \"\\uf65e\"\n\"\"\"str: Folder with plus sign.\"\"\"\nICON_PLAY = \"\\uf04b\"\n\"\"\"str: Play/start icon.\"\"\"\nICON_STOP = \"\\uf04d\"\n\"\"\"str: Stop icon.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_TRASH",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_TRASH = \"\\uf1f8\"\n\"\"\"str: Trash/delete icon.\"\"\"\nICON_FOLDER_PLUS = \"\\uf65e\"\n\"\"\"str: Folder with plus sign.\"\"\"\nICON_PLAY = \"\\uf04b\"\n\"\"\"str: Play/start icon.\"\"\"\nICON_STOP = \"\\uf04d\"\n\"\"\"str: Stop icon.\"\"\"\nICON_CLOCK = \"\\uf017\"\n\"\"\"str: Clock icon for time display.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FOLDER_PLUS",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_FOLDER_PLUS = \"\\uf65e\"\n\"\"\"str: Folder with plus sign.\"\"\"\nICON_PLAY = \"\\uf04b\"\n\"\"\"str: Play/start icon.\"\"\"\nICON_STOP = \"\\uf04d\"\n\"\"\"str: Stop icon.\"\"\"\nICON_CLOCK = \"\\uf017\"\n\"\"\"str: Clock icon for time display.\"\"\"\nICON_CALENDAR = \"\\uf073\"\n\"\"\"str: Calendar icon for dates.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_PLAY",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_PLAY = \"\\uf04b\"\n\"\"\"str: Play/start icon.\"\"\"\nICON_STOP = \"\\uf04d\"\n\"\"\"str: Stop icon.\"\"\"\nICON_CLOCK = \"\\uf017\"\n\"\"\"str: Clock icon for time display.\"\"\"\nICON_CALENDAR = \"\\uf073\"\n\"\"\"str: Calendar icon for dates.\"\"\"\nICON_FLAG_CHECKERED = \"\\uf11e\"\n\"\"\"str: Checkered flag icon for laps/finish.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_STOP",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_STOP = \"\\uf04d\"\n\"\"\"str: Stop icon.\"\"\"\nICON_CLOCK = \"\\uf017\"\n\"\"\"str: Clock icon for time display.\"\"\"\nICON_CALENDAR = \"\\uf073\"\n\"\"\"str: Calendar icon for dates.\"\"\"\nICON_FLAG_CHECKERED = \"\\uf11e\"\n\"\"\"str: Checkered flag icon for laps/finish.\"\"\"\n# ============================================================================\n# Font Configuration",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_CLOCK",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_CLOCK = \"\\uf017\"\n\"\"\"str: Clock icon for time display.\"\"\"\nICON_CALENDAR = \"\\uf073\"\n\"\"\"str: Calendar icon for dates.\"\"\"\nICON_FLAG_CHECKERED = \"\\uf11e\"\n\"\"\"str: Checkered flag icon for laps/finish.\"\"\"\n# ============================================================================\n# Font Configuration\n# ============================================================================\nICON_FONT = 'Icons'",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_CALENDAR",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_CALENDAR = \"\\uf073\"\n\"\"\"str: Calendar icon for dates.\"\"\"\nICON_FLAG_CHECKERED = \"\\uf11e\"\n\"\"\"str: Checkered flag icon for laps/finish.\"\"\"\n# ============================================================================\n# Font Configuration\n# ============================================================================\nICON_FONT = 'Icons'\n\"\"\"str: Registered font name for Font Awesome icons.\"\"\"\nICON_FONT_FILE = 'fa-solid-900.ttf'",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FLAG_CHECKERED",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_FLAG_CHECKERED = \"\\uf11e\"\n\"\"\"str: Checkered flag icon for laps/finish.\"\"\"\n# ============================================================================\n# Font Configuration\n# ============================================================================\nICON_FONT = 'Icons'\n\"\"\"str: Registered font name for Font Awesome icons.\"\"\"\nICON_FONT_FILE = 'fa-solid-900.ttf'\n\"\"\"str: Filename of the Font Awesome font file.\"\"\"\nICON_FONT_URL = \"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.ttf\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_FONT = 'Icons'\n\"\"\"str: Registered font name for Font Awesome icons.\"\"\"\nICON_FONT_FILE = 'fa-solid-900.ttf'\n\"\"\"str: Filename of the Font Awesome font file.\"\"\"\nICON_FONT_URL = \"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.ttf\"\n\"\"\"str: CDN URL for downloading Font Awesome if not present locally.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT_FILE",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_FONT_FILE = 'fa-solid-900.ttf'\n\"\"\"str: Filename of the Font Awesome font file.\"\"\"\nICON_FONT_URL = \"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.ttf\"\n\"\"\"str: CDN URL for downloading Font Awesome if not present locally.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "ICON_FONT_URL",
+        "kind": 5,
+        "importPath": "src.constants",
+        "description": "src.constants",
+        "peekOfCode": "ICON_FONT_URL = \"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.ttf\"\n\"\"\"str: CDN URL for downloading Font Awesome if not present locally.\"\"\"",
+        "detail": "src.constants",
+        "documentation": {}
+    },
+    {
+        "label": "StopwatchApp",
+        "kind": 6,
+        "importPath": "src.main",
+        "description": "src.main",
+        "peekOfCode": "class StopwatchApp(App):\n    \"\"\"Main application class for the Stopwatch.\n    Manages the overall application lifecycle including:\n    - Building the UI structure\n    - Initializing managers\n    - Handling app shutdown and state persistence\n    Attributes:\n        timer_screen: Reference to the main timer screen\n    \"\"\"\n    def build(self) -> ScreenManager:",
+        "detail": "src.main",
+        "documentation": {}
+    },
+    {
+        "label": "Window.clearcolor",
+        "kind": 5,
+        "importPath": "src.main",
+        "description": "src.main",
+        "peekOfCode": "Window.clearcolor = (0.12, 0.12, 0.12, 1)\nWindow.bind(on_resize=enforce_aspect_ratio)\nclass StopwatchApp(App):\n    \"\"\"Main application class for the Stopwatch.\n    Manages the overall application lifecycle including:\n    - Building the UI structure\n    - Initializing managers\n    - Handling app shutdown and state persistence\n    Attributes:\n        timer_screen: Reference to the main timer screen",
+        "detail": "src.main",
+        "documentation": {}
+    }
+]

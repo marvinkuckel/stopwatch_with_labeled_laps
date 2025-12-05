@@ -1,4 +1,6 @@
+.vscode/
+__pycache__/
+.buildozer/
 saves/
 states/
 exports/
-__pycache__/

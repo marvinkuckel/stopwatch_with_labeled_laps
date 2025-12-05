@@ -13,9 +13,11 @@ from kivy.utils import platform
 from constants import DESKTOP_RESOLUTION
 
 # Configure window size for desktop platforms before other imports
-if platform not in ("android", "ios"):
-    Config.set('graphics', 'width', str(DESKTOP_RESOLUTION[0]))
-    Config.set('graphics', 'height', str(DESKTOP_RESOLUTION[1]))
+if platform == "android":
+    Config.set('graphics', 'multisamples', '0')
+    Config.set('input', '%(name)s', 'probesysfs,provider=hidinput')
+else:
+    Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
@@ -23,13 +25,11 @@ from kivy.core.window import Window
 
 from managers import LabelManager
 from screens import TimerScreen, LabelsScreen
-from utils import enforce_aspect_ratio, download_font_awesome
+from utils import download_font_awesome
 
 
 # Additional configuration
-Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 Window.clearcolor = (0.12, 0.12, 0.12, 1)
-Window.bind(on_resize=enforce_aspect_ratio)
 
 
 class StopwatchApp(App):

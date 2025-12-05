@@ -16,8 +16,8 @@ from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 from kivy.uix.textinput import TextInput
 from kivy.uix.spinner import Spinner
-from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.checkbox import CheckBox
+from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle, Ellipse, RoundedRectangle
 
@@ -25,6 +25,7 @@ from constants import (ACCENT, DANGER, ICON_ARROW_LEFT, ICON_FOLDER_PLUS,
                       ICON_FONT, ICON_PEN, ICON_PLUS, ICON_TAGS, ICON_TRASH,
                       MUTED, PRIMARY, SURFACE_LIGHT, TEXT)
 from widgets import RButton, create_info_dialog, create_two_button_dialog, create_confirmation_dialog
+#from widgets.custom_widgets import CustomColorPicker as ColorPicker
 
 
 class LabelsScreen(Screen):

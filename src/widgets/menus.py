@@ -1,4 +1,4 @@
-"""Slide-in menu widgets for navigation and actions.
+"""Slide-in menu widgets for navigation and actions - RESPONSIVE VERSION.
 
 This module provides menu widgets that slide in from screen edges,
 commonly used for save state management and settings.
@@ -16,8 +16,9 @@ from kivy.animation import Animation
 from constants import (TEXT, MUTED, ACCENT, DANGER, PRIMARY, SURFACE_LIGHT,
                       ICON_TRASH, ICON_FONT, ICON_CLOCK, ICON_FLAG_CHECKERED, 
                       ICON_CALENDAR)
-from .buttons import RButton
-from .dialogs import create_text_input_dialog, create_confirmation_dialog
+from widgets import RButton
+from widgets.dialogs import create_text_input_dialog, create_confirmation_dialog
+from utils import rh, rfs, rp, rs
 
 
 class SlideMenu(ModalView):
@@ -72,10 +73,14 @@ class SlideMenu(ModalView):
     def _build_menu(self) -> None:
         """Build the menu structure with header, content, and footer."""
         # Header
-        header = BoxLayout(size_hint_y=None, height=80, padding=20)
+        header = BoxLayout(
+            size_hint_y=None, 
+            height=rh('header') + rp() * 2, 
+            padding=rp() + 8
+        )
         header_label = Label(
             text="Save States",
-            font_size="24sp",
+            font_size=rfs('title'),
             color=TEXT,
             halign="left",
             valign="middle"
@@ -87,9 +92,9 @@ class SlideMenu(ModalView):
         scroll = ScrollView()
         self.states_grid = GridLayout(
             cols=1,
-            spacing=8,
+            spacing=rs(),
             size_hint_y=None,
-            padding=[12, 12]
+            padding=[rp(), rp()]
         )
         self.states_grid.bind(minimum_height=self.states_grid.setter("height"))
         scroll.add_widget(self.states_grid)
@@ -97,9 +102,9 @@ class SlideMenu(ModalView):
         # Footer with action buttons
         footer = BoxLayout(
             size_hint_y=None,
-            height=100,
-            padding=20,
-            spacing=12,
+            height=rh('footer') + rp(),
+            padding=rp() + 8,
+            spacing=rs() + 4,
             orientation='vertical'
         )
         
@@ -107,8 +112,8 @@ class SlideMenu(ModalView):
             text="+ New Save State",
             color=ACCENT,
             size_hint_y=None,
-            height=50,
-            font_size="16sp"
+            height=rh('button'),
+            font_size=rfs('button')
         )
         new_save_btn.bind(on_press=self._create_new_save_state)
         footer.add_widget(new_save_btn)
@@ -151,12 +156,15 @@ class SlideMenu(ModalView):
         Returns:
             BoxLayout widget containing the save state display
         """
+        # Calculate row height based on components
+        row_height = rh('button') * 2 + rp() * 2 + rs()
+        
         row = BoxLayout(
             orientation='vertical',
             size_hint_y=None,
-            height=100,
-            padding=12,
-            spacing=4
+            height=row_height,
+            padding=rp(),
+            spacing=rs() / 2
         )
         
         # Background
@@ -169,7 +177,7 @@ class SlideMenu(ModalView):
         )
         
         # Top row: Name and action buttons
-        top_row = BoxLayout(size_hint_y=None, height=36, spacing=8)
+        top_row = BoxLayout(size_hint_y=None, height=rh('button') - rs(), spacing=rs())
         
         name_label = Label(
             text=state_name,
@@ -181,11 +189,14 @@ class SlideMenu(ModalView):
         )
         name_label.bind(size=name_label.setter('text_size'))
         
+        # Button widths
+        btn_width = rh('button') + rp()
+        
         export_btn = RButton(
             text="Export",
             color=PRIMARY,
             size_hint_x=None,
-            width=70,
+            width=btn_width,
             font_size="13sp"
         )
         export_btn.bind(on_press=lambda *_: self._export_save_state(state_name))
@@ -194,7 +205,7 @@ class SlideMenu(ModalView):
             text="Load",
             color=ACCENT,
             size_hint_x=None,
-            width=70,
+            width=btn_width,
             font_size="13sp"
         )
         load_btn.bind(on_press=lambda *_: self._load_save_state(state_name))
@@ -203,7 +214,7 @@ class SlideMenu(ModalView):
             text=ICON_TRASH,
             color=DANGER,
             size_hint_x=None,
-            width=40,
+            width=rh('button') - rs(),
             font_name=ICON_FONT,
             font_size="16sp"
         )
@@ -233,9 +244,9 @@ class SlideMenu(ModalView):
         """
         bottom_row = BoxLayout(
             size_hint_y=None,
-            height=40,
-            spacing=12,
-            padding=[0, 4]
+            height=rh('button') - rp(),
+            spacing=rs() + 4,
+            padding=[0, rs() / 2]
         )
         
         metadata = self.timer_screen._get_save_state_metadata(state_name)
@@ -285,7 +296,7 @@ class SlideMenu(ModalView):
         Returns:
             BoxLayout containing icon and text labels
         """
-        container = BoxLayout(size_hint_x=size_hint, spacing=4)
+        container = BoxLayout(size_hint_x=size_hint, spacing=rs() / 2)
         
         icon_label = Label(
             text=icon,
@@ -293,7 +304,7 @@ class SlideMenu(ModalView):
             color=MUTED,
             font_size="12sp",
             size_hint_x=None,
-            width=20,
+            width=rp() * 1.5,
             halign="center",
             valign="middle"
         )

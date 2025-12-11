@@ -5,6 +5,7 @@ This module initializes and runs the Kivy application, setting up:
 - Screen manager with timer and labels screens
 - Label manager for persistent data
 - Font loading for icons
+- Mobile slider patches for better touch interaction
 """
 
 from kivy.config import Config
@@ -26,6 +27,9 @@ from kivy.core.window import Window
 from managers import LabelManager
 from screens import TimerScreen, LabelsScreen
 from utils import download_font_awesome
+
+# Import and apply slider patches for mobile
+from widgets import apply_slider_patches
 
 
 # Additional configuration
@@ -50,6 +54,9 @@ class StopwatchApp(App):
         Returns:
             ScreenManager containing all application screens
         """
+        # Apply mobile slider patches first (before any UI is created)
+        apply_slider_patches()
+        
         # Load Font Awesome icons
         download_font_awesome()
         

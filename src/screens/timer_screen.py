@@ -1,11 +1,7 @@
-"""Main timer screen with stopwatch and lap functionality.
+"""Main timer screen with stopwatch and lap functionality - PERFORMANCE OPTIMIZED.
 
-This module contains the primary timer interface where users can:
-- Start/stop the timer
-- Record laps with labels
-- Add notes to laps
-- Save and load timer states
-- Export sessions to CSV
+Main optimization: Only add new lap rows instead of rebuilding all rows.
+This makes adding laps MUCH faster, especially with many existing laps.
 """
 
 from typing import Dict, List, Optional
@@ -23,7 +19,7 @@ from kivy.clock import Clock
 from constants import (ACCENT, DANGER, ICON_BARS, ICON_FONT, ICON_PEN,
                       ICON_PLAY, ICON_STOP, ICON_TAGS, MUTED, SURFACE_LIGHT, TEXT)
 from widgets import RButton, LabelSpinner, SlideMenu
-from utils import format_time, CSVExporter
+from utils import format_time, CSVExporter, rh, rfs, rp, rs
 from managers import StateManager
 
 
@@ -46,6 +42,7 @@ class TimerScreen(Screen):
         laps: List of recorded lap dictionaries
         provisional_label: Label selected for next lap (if any)
         label_startstop_state: Dict tracking start/stop state per label
+        lap_widgets: List of lap widget references for efficient updates
     """
     
     def __init__(self, lm, **kwargs):
@@ -67,6 +64,9 @@ class TimerScreen(Screen):
         self.laps: List[dict] = []
         self.provisional_label: Optional[dict] = None
         self.label_startstop_state: Dict[str, bool] = {}
+        
+        # Performance optimization: track lap widgets
+        self.lap_widgets: List[BoxLayout] = []
         
         self._build_ui()
         self._load_from_storage()
@@ -93,7 +93,8 @@ class TimerScreen(Screen):
         Returns:
             BoxLayout containing header widgets
         """
-        header = BoxLayout(size_hint_y=None, height=56, padding=8, spacing=8)
+        header = BoxLayout(size_hint_y=None, height=rh('header'), 
+                          padding=rp(), spacing=rs())
         
         # Background
         with header.canvas.before:
@@ -109,20 +110,20 @@ class TimerScreen(Screen):
             text=ICON_BARS,
             color=SURFACE_LIGHT,
             size_hint_x=None,
+            width=rh('header') - rp(),
             font_name=ICON_FONT,
-            font_size="22sp"
+            font_size=rfs('icon')
         )
         burger_btn.bind(on_press=self._open_save_menu)
-        burger_btn.size[0] = 50
         
         # Title
         title = Label(
             text="Timer",
             halign="left",
             valign="middle",
-            padding=[8, 0, 0, 0],
+            padding=[rp(), 0, 0, 0],
             color=TEXT,
-            font_size="25sp"
+            font_size=rfs('title')
         )
         title.bind(size=title.setter('text_size'))
         
@@ -131,11 +132,11 @@ class TimerScreen(Screen):
             text=ICON_TAGS,
             color=SURFACE_LIGHT,
             size_hint_x=None,
+            width=rh('header') - rp(),
             font_name=ICON_FONT,
-            font_size="22sp"
+            font_size=rfs('icon')
         )
         labels_btn.bind(on_press=self._navigate_to_labels)
-        labels_btn.size[0] = 50
         
         header.add_widget(burger_btn)
         header.add_widget(title)
@@ -151,11 +152,12 @@ class TimerScreen(Screen):
         """
         self.time_label = Label(
             text="0:00.000",
-            font_size="56sp",
+            font_size=rfs('time'),
             color=TEXT
         )
         
-        time_box = BoxLayout(size_hint_y=None, height=100, padding=12)
+        time_box = BoxLayout(size_hint_y=None, height=rh('time_display'), 
+                            padding=rp())
         time_box.add_widget(self.time_label)
         
         return time_box
@@ -169,8 +171,8 @@ class TimerScreen(Screen):
         outer_container = BoxLayout(
             orientation="vertical",
             size_hint_y=None,
-            height=80,
-            padding=[8, 8]
+            height=rh('provisional_label'),
+            padding=[rp(), rp()]
         )
         
         # Background
@@ -189,10 +191,10 @@ class TimerScreen(Screen):
             text="Next Label:",
             color=MUTED,
             size_hint_y=None,
-            height=20,
+            height=rp() + 8,
             halign="left",
             valign="bottom",
-            font_size="13sp"
+            font_size="12sp"
         )
         label_text.bind(size=label_text.setter('text_size'))
         
@@ -206,7 +208,7 @@ class TimerScreen(Screen):
             label_manager=self.lm,
             on_change=self._on_provisional_label_change,
             size_hint_y=None,
-            height=40
+            height=rh('button')
         )
         
         outer_container.add_widget(label_text)
@@ -235,14 +237,26 @@ class TimerScreen(Screen):
         Returns:
             BoxLayout containing control buttons
         """
-        self.left_btn = RButton(text="Start", color=ACCENT, font_size="20sp")
+        self.left_btn = RButton(
+            text="Start", 
+            color=ACCENT, 
+            font_size=rfs('button')
+        )
         self.left_btn.bind(on_press=self._toggle_timer)
         
-        self.right_btn = RButton(text="Reset", color=SURFACE_LIGHT, 
-                                font_size="20sp")
+        self.right_btn = RButton(
+            text="Reset", 
+            color=SURFACE_LIGHT, 
+            font_size=rfs('button')
+        )
         self.right_btn.bind(on_press=self._lap_or_reset)
         
-        footer = BoxLayout(size_hint_y=None, height=110, padding=20, spacing=20)
+        footer = BoxLayout(
+            size_hint_y=None, 
+            height=rh('footer'), 
+            padding=rp() + 8, 
+            spacing=rp() + 8
+        )
         footer.add_widget(self.left_btn)
         footer.add_widget(self.right_btn)
         
@@ -285,6 +299,7 @@ class TimerScreen(Screen):
         self.time_label.text = format_time(0)
         self.laps.clear()
         self.lap_grid.clear_widgets()
+        self.lap_widgets.clear()
         self.label_startstop_state.clear()
         self._save_to_storage()
 
@@ -300,11 +315,14 @@ class TimerScreen(Screen):
             self.right_btn.text = "Reset"
 
     # ==========================================================================
-    # LAP MANAGEMENT
+    # LAP MANAGEMENT - OPTIMIZED
     # ==========================================================================
 
     def _add_lap(self, *args) -> None:
-        """Record a new lap with current time and label."""
+        """Record a new lap with current time and label.
+        
+        OPTIMIZED: Only adds the new lap row instead of rebuilding all rows.
+        """
         # Determine which label to use
         if self.provisional_label:
             label = self.provisional_label
@@ -335,12 +353,36 @@ class TimerScreen(Screen):
         }
         self.laps.insert(0, lap_data)
         
-        self._refresh_all_lap_rows()
+        # PERFORMANCE OPTIMIZATION: Only add the new row, don't rebuild everything
+        lap_number = len(self.laps)
+        new_lap_widget = self._create_lap_row(lap_number, lap_data)
+        self.lap_grid.add_widget(new_lap_widget, index=-1)
+        self.lap_widgets.insert(0, new_lap_widget)
+        
+        # Update lap numbers for existing laps (just the text, no rebuild)
+        self._update_lap_numbers()
+        
         self._save_to_storage()
         
         # Reset provisional selection
         self.provisional_label = None
         self._update_provisional_display()
+
+    def _update_lap_numbers(self) -> None:
+        """Update lap numbers in existing rows (performance optimized).
+        
+        Instead of rebuilding all rows, just update the number labels.
+        """
+        total_laps = len(self.laps)
+        
+        for i, lap_widget in enumerate(self.lap_widgets):
+            # Find the number label (first child in the row)
+            if len(lap_widget.children) > 0:
+                # Children are in reverse order in Kivy
+                num_label = lap_widget.children[-1]  # First widget added = last in children
+                if isinstance(num_label, Label):
+                    lap_number = total_laps - i
+                    num_label.text = f"{lap_number}."
 
     def _find_label_group(self, label: dict) -> str:
         """Find which group a label belongs to.
@@ -369,7 +411,12 @@ class TimerScreen(Screen):
         Returns:
             BoxLayout containing lap information
         """
-        row = BoxLayout(size_hint_y=None, height=64, padding=12, spacing=10)
+        row = BoxLayout(
+            size_hint_y=None, 
+            height=rh('lap_row'), 
+            padding=rp(), 
+            spacing=rs() + 2
+        )
         
         # Background
         with row.canvas.before:
@@ -385,7 +432,7 @@ class TimerScreen(Screen):
             text=f"{number}.",
             size_hint_x=0.05,
             color=TEXT,
-            font_size="16sp",
+            font_size="14sp",
             halign="left",
             valign="center"
         )
@@ -397,23 +444,23 @@ class TimerScreen(Screen):
             indicator = Label(
                 text=ICON_PLAY if lap_type == "Start" else ICON_STOP,
                 font_name=ICON_FONT,
-                font_size="14sp",
+                font_size="12sp",
                 color=ACCENT if lap_type == "Start" else DANGER,
                 size_hint_x=None,
-                width=28,
+                width=rp() * 2.5,
                 halign="center",
                 valign="middle"
             )
             indicator.bind(size=indicator.setter('text_size'))
         else:
-            indicator = Widget(size_hint_x=None, width=28)
+            indicator = Widget(size_hint_x=None, width=rp() * 2.5)
         
         # Time
         time_label = Label(
             text=format_time(lap["t"]),
             size_hint_x=0.1,
             color=TEXT,
-            font_size="16sp",
+            font_size="14sp",
             halign="center"
         )
         
@@ -428,10 +475,10 @@ class TimerScreen(Screen):
         # Note button
         pencil_btn = RButton(
             text=ICON_PEN,
-            color=SURFACE_LIGHT,
+            color=ACCENT if lap.get("note") else SURFACE_LIGHT,
             size_hint_x=0.08,
             font_name=ICON_FONT,
-            font_size="18sp"
+            font_size="15sp"
         )
         pencil_btn.bind(on_press=lambda *_, l=lap: self._open_note_popup(l, 
                                                                          pencil_btn))
@@ -445,13 +492,18 @@ class TimerScreen(Screen):
         return row
 
     def _refresh_all_lap_rows(self) -> None:
-        """Rebuild all lap rows from scratch."""
+        """Rebuild all lap rows from scratch.
+        
+        Only used when absolutely necessary (label changes, state load).
+        """
         self.lap_grid.clear_widgets()
+        self.lap_widgets.clear()
         
         for i, lap in enumerate(self.laps):
             lap_number = len(self.laps) - i
             lap_widget = self._create_lap_row(lap_number, lap)
             self.lap_grid.add_widget(lap_widget, index=0)
+            self.lap_widgets.append(lap_widget)
 
     def _on_lap_label_changed(self, lap: dict) -> None:
         """Handle label change for a lap.
@@ -564,16 +616,30 @@ class TimerScreen(Screen):
         text_input = TextInput(
             text=lap.get("note", ""),
             multiline=True,
-            font_size=24
+            font_size="16sp"
         )
         
-        save_btn = RButton(text="Save", color=ACCENT, size_hint_y=None, height=40)
+        save_btn = RButton(
+            text="Save", 
+            color=ACCENT, 
+            size_hint_y=None, 
+            height=rh('button')
+        )
         
-        content = BoxLayout(orientation="vertical", spacing=8, padding=8)
+        content = BoxLayout(
+            orientation="vertical", 
+            spacing=rs(), 
+            padding=rp()
+        )
         content.add_widget(text_input)
         content.add_widget(save_btn)
         
-        popup = Popup(title="Note", content=content, size_hint=(0.9, 0.7))
+        popup = Popup(
+            title="Note", 
+            content=content, 
+            size_hint=(0.9, 0.7),
+            title_size="15sp"
+        )
         
         def save_note(*args):
             lap["note"] = text_input.text
@@ -662,38 +728,21 @@ class TimerScreen(Screen):
                         break
 
     # ==========================================================================
-    # SAVE STATES (delegated to StateManager, kept for compatibility)
+    # SAVE STATES (delegated to StateManager)
     # ==========================================================================
 
     def _save_state(self, state_name: Optional[str] = None) -> bool:
-        """Save current timer state with a name.
-        
-        Args:
-            state_name: Name for the save state, or None for timestamp
-            
-        Returns:
-            True if successful
-        """
+        """Save current timer state with a name."""
         if state_name is None:
             from datetime import datetime
             state_name = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         
         return self.state_manager.create_save_state(
-            state_name,
-            self.time,
-            self.laps,
-            self.label_startstop_state
+            state_name, self.time, self.laps, self.label_startstop_state
         )
 
     def _load_state(self, state_name: str) -> bool:
-        """Load a named save state.
-        
-        Args:
-            state_name: Name of the save state
-            
-        Returns:
-            True if successful
-        """
+        """Load a named save state."""
         state = self.state_manager.load_save_state(state_name)
         
         if state:
@@ -701,44 +750,23 @@ class TimerScreen(Screen):
             self.laps = state.get('laps', [])
             self.label_startstop_state = state.get('label_startstop_state', {})
             
-            # Update UI
             self.time_label.text = format_time(self.time)
             self._refresh_all_lap_rows()
-            
-            # Save to current state
             self._save_to_storage()
             return True
         
         return False
 
     def _get_all_save_states(self) -> List[str]:
-        """Get list of all save states.
-        
-        Returns:
-            List of save state names
-        """
+        """Get list of all save states."""
         return self.state_manager.list_save_states()
 
     def _delete_save_state(self, state_name: str) -> bool:
-        """Delete a save state.
-        
-        Args:
-            state_name: Name of save state to delete
-            
-        Returns:
-            True if successful
-        """
+        """Delete a save state."""
         return self.state_manager.delete_save_state(state_name)
 
     def _get_save_state_metadata(self, state_name: str) -> Optional[Dict]:
-        """Get metadata for a save state.
-        
-        Args:
-            state_name: Name of the save state
-            
-        Returns:
-            Dictionary with metadata, or None if not found
-        """
+        """Get metadata for a save state."""
         return self.state_manager.get_save_metadata(state_name)
 
     # ==========================================================================
@@ -746,37 +774,46 @@ class TimerScreen(Screen):
     # ==========================================================================
 
     def _export_save_state_to_csv(self, state_name: str) -> bool:
-        """Export a save state to CSV file.
+        """Export a save state to CSV file."""
+        print(f"\n🔵 Timer Screen: Export requested for '{state_name}'")
         
-        Args:
-            state_name: Name of the save state to export
-            
-        Returns:
-            True if successful
-        """
-        # Load the save state data
         state = self.state_manager.load_save_state(state_name)
         
         if not state:
+            print(f"❌ Timer Screen: State '{state_name}' not found!")
+            self._show_export_error("Save state not found!")
             return False
         
-        # Export using CSV exporter
-        return self.csv_exporter.export_save_state(
-            state_name,
-            state,
-            success_callback=self._show_export_success
+        print(f"✅ Timer Screen: State loaded, calling exporter...")
+        
+        result = self.csv_exporter.export_save_state(
+            state_name, 
+            state, 
+            success_callback=self._show_export_success,
+            error_callback=self._show_export_error
         )
+        
+        print(f"🔵 Timer Screen: Export result = {result}")
+        return result
 
     def _show_export_success(self, filepath: str) -> None:
-        """Show success message after CSV export.
-        
-        Args:
-            filepath: Path where CSV was saved
-        """
+        """Show success message after CSV export."""
+        print(f"✅ Timer Screen: Showing success dialog")
         from widgets import create_info_dialog
         
         dialog = create_info_dialog(
             title="Export Successful",
             message=f"Export successful!\n\nSaved to:\n{filepath}"
+        )
+        dialog.open()
+    
+    def _show_export_error(self, error_msg: str) -> None:
+        """Show error message after failed export."""
+        print(f"❌ Timer Screen: Showing error dialog: {error_msg}")
+        from widgets import create_info_dialog
+        
+        dialog = create_info_dialog(
+            title="Export Failed",
+            message=f"Export failed:\n\n{error_msg}\n\nCheck logs for details."
         )
         dialog.open()

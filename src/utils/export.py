@@ -1,83 +1,82 @@
-"""CSV export functionality for timer sessions.
-
-This module handles exporting timer data to CSV format with
-platform-specific file saving (Desktop, Android, iOS).
-"""
+"""CSV export - FIXED: Wait for permissions before showing dialog."""
 
 import os
 import csv
 from datetime import datetime
 from typing import List, Dict, Optional
 from kivy.utils import platform
+from kivy.clock import Clock
 
 from .formatting import format_time
 
 
 class CSVExporter:
-    """Handles CSV export of timer sessions with platform-specific saving.
-    
-    Supports exporting lap data with labels, times, and metadata to CSV format.
-    Handles different save mechanisms for Desktop, Android, and iOS platforms.
-    """
+    """Handles CSV export with proper permission waiting."""
     
     def __init__(self):
         """Initialize the CSV exporter."""
         self.exports_dir = 'exports'
-        os.makedirs(self.exports_dir, exist_ok=True)
+        if platform not in ('android', 'ios'):
+            os.makedirs(self.exports_dir, exist_ok=True)
+        
+        self.last_error = None
     
     def export_save_state(self, state_name: str, save_data: dict,
-                         success_callback: Optional[callable] = None) -> bool:
-        """Export a save state to CSV file.
+                         success_callback: Optional[callable] = None,
+                         error_callback: Optional[callable] = None) -> bool:
+        """Export a save state to CSV file."""
+        print(f"\n{'='*60}")
+        print(f"🚀 EXPORT STARTED: {state_name}")
+        print(f"{'='*60}")
         
-        Creates a CSV file with:
-        - Metadata header (name, creation time, total time, lap count)
-        - Label information grouped by label groups
-        - Lap data (number, time, label, type, notes)
-        
-        Args:
-            state_name: Name of the save state
-            save_data: Dictionary containing 'time', 'laps', and 'saved_at'
-            success_callback: Optional callback(filepath) called on successful export
-            
-        Returns:
-            True if export was successful, False otherwise
-        """
         try:
             laps = save_data.get('laps', [])
             saved_at = save_data.get('saved_at', '')
             total_time = save_data.get('time', 0)
             
+            print(f"📊 Data: {len(laps)} laps, {total_time:.2f}s total")
+            
             # Generate filename with timestamp
             timestamp = self._format_timestamp(saved_at)
             csv_filename = f'{state_name}_{timestamp}.csv'
             
+            print(f"📝 Filename: {csv_filename}")
+            
             # Build CSV content
+            print(f"🔨 Building CSV content...")
             csv_content = self._build_csv_content(
                 state_name, saved_at, total_time, laps
             )
+            print(f"✅ CSV content built: {len(csv_content)} rows")
             
             # Export using platform-specific method
-            return self._export_platform_specific(
-                csv_filename, csv_content, success_callback
+            print(f"📱 Platform: {platform}")
+            result = self._export_platform_specific(
+                csv_filename, csv_content, success_callback, error_callback
             )
             
+            print(f"{'='*60}")
+            print(f"{'✅ SUCCESS' if result else '❌ FAILED'}")
+            print(f"{'='*60}\n")
+            
+            return result
+            
         except Exception as e:
-            print(f"❌ Error exporting to CSV: {e}")
+            error_msg = f"Export error: {str(e)}"
+            print(f"❌ EXCEPTION: {error_msg}")
+            import traceback
+            traceback.print_exc()
+            
+            self.last_error = error_msg
+            
+            if error_callback:
+                error_callback(error_msg)
+            
             return False
     
     def _build_csv_content(self, state_name: str, saved_at: str,
                           total_time: float, laps: List[dict]) -> List[List[str]]:
-        """Build the complete CSV content structure.
-        
-        Args:
-            state_name: Name of the save state
-            saved_at: ISO format timestamp
-            total_time: Total elapsed time in seconds
-            laps: List of lap dictionaries
-            
-        Returns:
-            List of rows (each row is a list of strings)
-        """
+        """Build the complete CSV content structure."""
         csv_content = []
         
         # Header with metadata
@@ -87,12 +86,12 @@ class CSVExporter:
             ['# Created:', saved_at],
             ['# Total Time:', format_time(total_time)],
             ['# Total Laps:', len(laps)],
-            []  # Empty line
+            []
         ])
         
-        # Label information grouped by groups
+        # Label information
         csv_content.extend(self._build_label_info(laps))
-        csv_content.append([])  # Empty line
+        csv_content.append([])
         
         # Column headers
         csv_content.append(['Lap', 'Time', 'Label', 'SpecialType', 'Note'])
@@ -110,26 +109,14 @@ class CSVExporter:
         return csv_content
     
     def _build_label_info(self, laps: List[dict]) -> List[List[str]]:
-        """Build label information section for CSV header.
-        
-        Groups labels by their label groups and lists unique labels
-        with their descriptions and special types.
-        
-        Args:
-            laps: List of lap dictionaries
-            
-        Returns:
-            List of CSV rows containing label information
-        """
+        """Build label information section for CSV header."""
         rows = [
             ['# Used Labels:'],
             ['#     Name', 'Description', 'SpecialType']
         ]
         
-        # Collect unique labels by group
         labels_by_group = self._collect_labels_by_group(laps)
         
-        # Add label info grouped by group
         for group_name, labels in sorted(labels_by_group.items()):
             rows.append([f'#   Group: {group_name}'])
             for label_name, label_info in sorted(labels.items()):
@@ -144,14 +131,7 @@ class CSVExporter:
         return rows
     
     def _collect_labels_by_group(self, laps: List[dict]) -> Dict[str, Dict]:
-        """Collect unique labels organized by their groups.
-        
-        Args:
-            laps: List of lap dictionaries
-            
-        Returns:
-            Dictionary mapping group names to dictionaries of label data
-        """
+        """Collect unique labels organized by their groups."""
         labels_by_group = {}
         
         for lap in laps:
@@ -172,14 +152,7 @@ class CSVExporter:
         return labels_by_group
     
     def _format_timestamp(self, saved_at: str) -> str:
-        """Format timestamp for filename.
-        
-        Args:
-            saved_at: ISO format timestamp string
-            
-        Returns:
-            Formatted timestamp string (YYYYMMDD_HHMMSS)
-        """
+        """Format timestamp for filename."""
         if saved_at:
             try:
                 dt = datetime.fromisoformat(saved_at)
@@ -189,38 +162,21 @@ class CSVExporter:
         return datetime.now().strftime("%Y%m%d_%H%M%S")
     
     def _export_platform_specific(self, filename: str, content: List[List[str]],
-                                  success_callback: Optional[callable]) -> bool:
-        """Export CSV using platform-appropriate method.
-        
-        Args:
-            filename: Name for the CSV file
-            content: List of CSV rows
-            success_callback: Optional callback for success notification
-            
-        Returns:
-            True if export was successful
-        """
+                                  success_callback: Optional[callable],
+                                  error_callback: Optional[callable]) -> bool:
+        """Export CSV using platform-appropriate method."""
         if platform == 'android':
-            return self._export_android(filename, content, success_callback)
+            return self._export_android(filename, content, success_callback, error_callback)
         elif platform == 'ios':
-            return self._export_ios(filename, content, success_callback)
+            return self._export_ios(filename, content, success_callback, error_callback)
         else:
-            return self._export_desktop(filename, content, success_callback)
+            return self._export_desktop(filename, content, success_callback, error_callback)
     
     def _export_desktop(self, filename: str, content: List[List[str]],
-                       success_callback: Optional[callable]) -> bool:
-        """Export CSV on desktop using native file dialog.
-        
-        Args:
-            filename: Suggested filename
-            content: CSV content rows
-            success_callback: Success callback
-            
-        Returns:
-            True if successful
-        """
+                       success_callback: Optional[callable],
+                       error_callback: Optional[callable]) -> bool:
+        """Export CSV on desktop using native file dialog."""
         try:
-            # Try using tkinter for native dialog
             import tkinter as tk
             from tkinter import filedialog
             
@@ -228,7 +184,6 @@ class CSVExporter:
             root.withdraw()
             root.attributes('-topmost', True)
             
-            # Open native save dialog
             filepath = filedialog.asksaveasfilename(
                 defaultextension=".csv",
                 filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
@@ -238,113 +193,255 @@ class CSVExporter:
             
             root.destroy()
             
-            if filepath:  # User didn't cancel
+            if filepath:
                 self._write_csv_file(filepath, content)
                 
                 if success_callback:
                     success_callback(filepath)
                 
-                print(f"✅ CSV exported successfully: {filepath}")
+                print(f"✅ CSV exported: {filepath}")
                 return True
             else:
                 print("Export cancelled")
                 return False
                 
         except ImportError:
-            # Fallback if tkinter not available
             print("⚠️ tkinter not available, using fallback")
-            return self._export_fallback(filename, content, success_callback)
+            return self._export_fallback(filename, content, success_callback, error_callback)
         except Exception as e:
             print(f"❌ Desktop export error: {e}")
-            return self._export_fallback(filename, content, success_callback)
+            if error_callback:
+                error_callback(str(e))
+            return False
     
     def _export_android(self, filename: str, content: List[List[str]],
-                       success_callback: Optional[callable]) -> bool:
-        """Export CSV on Android using share dialog.
+                       success_callback: Optional[callable],
+                       error_callback: Optional[callable]) -> bool:
+        """Export CSV on Android - REQUEST PERMISSIONS FIRST, THEN WAIT."""
+        print(f"🤖 ANDROID EXPORT START")
         
-        Args:
-            filename: CSV filename
-            content: CSV content rows
-            success_callback: Success callback
-            
-        Returns:
-            True if successful
-        """
         try:
-            from jnius import autoclass, cast
+            from android.permissions import request_permissions, Permission, check_permission
             
-            # Android classes
-            PythonActivity = autoclass('org.kivy.android.PythonActivity')
-            Intent = autoclass('android.content.Intent')
-            String = autoclass('java.lang.String')
-            Uri = autoclass('android.net.Uri')
-            FileProvider = autoclass('androidx.core.content.FileProvider')
-            File = autoclass('java.io.File')
+            print(f"📦 Requesting permissions...")
             
-            # Save to cache directory
-            context = PythonActivity.mActivity
-            cache_dir = context.getCacheDir()
-            file_path = File(cache_dir, filename)
+            # Request permissions
+            request_permissions([
+                Permission.WRITE_EXTERNAL_STORAGE,
+                Permission.READ_EXTERNAL_STORAGE
+            ])
             
-            # Write CSV file
-            self._write_csv_file(file_path.getAbsolutePath(), content)
+            # IMPORTANT: Schedule the actual export to happen AFTER permissions are granted
+            # Use Clock.schedule_once to delay execution
+            def do_export_after_permission(dt):
+                self._do_android_export_with_permission(
+                    filename, content, success_callback, error_callback
+                )
             
-            # Create content URI with FileProvider
-            authority = String(context.getPackageName() + ".fileprovider")
-            content_uri = FileProvider.getUriForFile(context, authority, file_path)
+            # Wait 2 seconds for user to grant permission
+            print(f"⏳ Waiting for permission grant (2 seconds)...")
+            Clock.schedule_once(do_export_after_permission, 2.0)
             
-            # Create share intent
-            share_intent = Intent()
-            share_intent.setAction(Intent.ACTION_SEND)
-            share_intent.setType(String("text/csv"))
-            share_intent.putExtra(Intent.EXTRA_STREAM, 
-                                cast('android.os.Parcelable', content_uri))
-            share_intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            
-            # Show share dialog
-            chooser = Intent.createChooser(
-                share_intent,
-                cast('java.lang.CharSequence', String("Export CSV"))
-            )
-            context.startActivity(chooser)
-            
-            print("✅ Android share dialog opened")
+            # Return True immediately - actual result will be in callback
             return True
             
         except Exception as e:
-            print(f"❌ Android export error: {e}")
-            # Fallback: Save to Downloads
+            error_msg = f"Android export failed: {str(e)}"
+            print(f"❌ {error_msg}")
+            import traceback
+            traceback.print_exc()
+            
+            if error_callback:
+                error_callback(error_msg)
+            
+            return False
+    
+    def _do_android_export_with_permission(self, filename: str, content: List[List[str]],
+                                          success_callback: Optional[callable],
+                                          error_callback: Optional[callable]) -> bool:
+        """Actually do the Android export AFTER permissions are granted."""
+        print(f"🤖 ANDROID EXPORT - After permission wait")
+        
+        try:
+            from jnius import autoclass
+            from android.permissions import check_permission, Permission
+            
+            # Check if we actually got permission
+            has_write = check_permission(Permission.WRITE_EXTERNAL_STORAGE)
+            has_read = check_permission(Permission.READ_EXTERNAL_STORAGE)
+            
+            print(f"📋 Permissions: WRITE={has_write}, READ={has_read}")
+            
+            print(f"📦 Importing Android modules...")
+            
+            PythonActivity = autoclass('org.kivy.android.PythonActivity')
+            Environment = autoclass('android.os.Environment')
+            File = autoclass('java.io.File')
+            
+            context = PythonActivity.mActivity
+            
+            # Try multiple paths in order of preference
+            paths_to_try = []
+            
+            # 1. App-specific external directory (no permissions needed Android 10+)
             try:
-                from android.storage import primary_external_storage_path
-                downloads_path = os.path.join(
-                    primary_external_storage_path(), 'Download'
-                )
-                os.makedirs(downloads_path, exist_ok=True)
-                
-                full_path = os.path.join(downloads_path, filename)
-                self._write_csv_file(full_path, content)
-                
-                if success_callback:
-                    success_callback(full_path)
-                
-                print(f"✅ CSV saved to Downloads: {full_path}")
-                return True
-            except Exception as e2:
-                print(f"❌ Fallback failed: {e2}")
-                return self._export_fallback(filename, content, success_callback)
+                app_external_dir = context.getExternalFilesDir(None)
+                paths_to_try.append(('App Files', app_external_dir))
+                print(f"✅ Found App External: {app_external_dir.getAbsolutePath()}")
+            except Exception as e:
+                print(f"⚠️ Could not access App External: {e}")
+            
+            # 2. Downloads directory (if we have permission)
+            if has_write:
+                try:
+                    downloads_dir = Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS
+                    )
+                    paths_to_try.insert(0, ('Downloads', downloads_dir))
+                    print(f"✅ Found Downloads: {downloads_dir.getAbsolutePath()}")
+                except Exception as e:
+                    print(f"⚠️ Could not access Downloads: {e}")
+            
+            # 3. Documents directory (if we have permission)
+            if has_write:
+                try:
+                    docs_dir = Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOCUMENTS
+                    )
+                    paths_to_try.append(('Documents', docs_dir))
+                    print(f"✅ Found Documents: {docs_dir.getAbsolutePath()}")
+                except Exception as e:
+                    print(f"⚠️ Could not access Documents: {e}")
+            
+            # 4. Internal app directory (always works)
+            try:
+                app_internal_dir = context.getFilesDir()
+                paths_to_try.append(('Internal', app_internal_dir))
+                print(f"✅ Found Internal: {app_internal_dir.getAbsolutePath()}")
+            except Exception as e:
+                print(f"⚠️ Could not access Internal: {e}")
+            
+            # Try each path until one works
+            last_error = None
+            for path_name, directory in paths_to_try:
+                try:
+                    print(f"\n🔄 Trying {path_name}...")
+                    
+                    # Create full path
+                    file_obj = File(directory, filename)
+                    full_path = file_obj.getAbsolutePath()
+                    
+                    print(f"💾 Writing to: {full_path}")
+                    
+                    # Write file
+                    self._write_csv_file(full_path, content)
+                    print(f"✅ File written successfully!")
+                    
+                    # Try to notify media scanner
+                    self._notify_media_scanner(context, file_obj)
+                    
+                    # Try to open share dialog
+                    try:
+                        self._android_share_file(full_path, context)
+                        print(f"✅ Share dialog opened")
+                    except Exception as share_error:
+                        print(f"⚠️ Share dialog failed: {share_error}")
+                        # Not critical if share fails
+                    
+                    # Success!
+                    success_path = f"{path_name}/{filename}"
+                    if success_callback:
+                        success_callback(success_path)
+                    
+                    return True
+                    
+                except Exception as e:
+                    last_error = e
+                    print(f"❌ {path_name} failed: {e}")
+                    continue
+            
+            # All paths failed
+            error_msg = f"All export paths failed. Last error: {last_error}"
+            print(f"❌ {error_msg}")
+            
+            if error_callback:
+                error_callback(error_msg)
+            
+            return False
+            
+        except Exception as e:
+            error_msg = f"Android export (after permission) failed: {str(e)}"
+            print(f"❌ {error_msg}")
+            import traceback
+            traceback.print_exc()
+            
+            if error_callback:
+                error_callback(error_msg)
+            
+            return False
+    
+    def _notify_media_scanner(self, context, file_obj):
+        """Notify Android media scanner so file appears in file manager."""
+        try:
+            from jnius import autoclass
+            
+            Intent = autoclass('android.content.Intent')
+            Uri = autoclass('android.net.Uri')
+            
+            scan_intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+            file_uri = Uri.fromFile(file_obj)
+            scan_intent.setData(file_uri)
+            context.sendBroadcast(scan_intent)
+            print(f"✅ Media scanner notified")
+        except Exception as e:
+            print(f"⚠️ Media scanner failed: {e}")
+    
+    def _android_share_file(self, filepath: str, context):
+        """Open Android share dialog for a file."""
+        try:
+            from jnius import autoclass
+            
+            Intent = autoclass('android.content.Intent')
+            String = autoclass('java.lang.String')
+            File = autoclass('java.io.File')
+            Uri = autoclass('android.net.Uri')
+            
+            file_obj = File(filepath)
+            
+            # Try FileProvider first (Android 7+)
+            try:
+                print(f"📤 Trying FileProvider...")
+                FileProvider = autoclass('androidx.core.content.FileProvider')
+                authority = f"{context.getPackageName()}.fileprovider"
+                file_uri = FileProvider.getUriForFile(context, authority, file_obj)
+                print(f"✅ FileProvider URI: {file_uri.toString()}")
+            except Exception as fp_error:
+                print(f"⚠️ FileProvider failed: {fp_error}")
+                # Fallback to file:// URI (Android 6 and below)
+                file_uri = Uri.fromFile(file_obj)
+                print(f"⚠️ Using file URI: {file_uri.toString()}")
+            
+            # Create share intent
+            intent = Intent()
+            intent.setAction(Intent.ACTION_SEND)
+            intent.setType(String("text/csv"))
+            intent.putExtra(Intent.EXTRA_STREAM, file_uri)
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            
+            # Create chooser
+            chooser = Intent.createChooser(intent, String("Export CSV"))
+            chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            
+            context.startActivity(chooser)
+            
+        except Exception as e:
+            print(f"❌ Share dialog error: {e}")
+            raise
     
     def _export_ios(self, filename: str, content: List[List[str]],
-                   success_callback: Optional[callable]) -> bool:
-        """Export CSV on iOS using share sheet.
-        
-        Args:
-            filename: CSV filename
-            content: CSV content rows
-            success_callback: Success callback
-            
-        Returns:
-            True if successful
-        """
+                   success_callback: Optional[callable],
+                   error_callback: Optional[callable]) -> bool:
+        """Export CSV on iOS using share sheet."""
         try:
             from pyobjus import autoclass
             from pyobjus.dylib_manager import load_framework
@@ -352,29 +449,24 @@ class CSVExporter:
             
             load_framework('/System/Library/Frameworks/UIKit.framework')
             
-            # Objective-C classes
             UIApplication = autoclass('UIApplication')
             NSURL = autoclass('NSURL')
             NSString = autoclass('NSString')
             UIActivityViewController = autoclass('UIActivityViewController')
             NSArray = autoclass('NSArray')
             
-            # Save to temp directory
             temp_dir = tempfile.gettempdir()
             full_path = os.path.join(temp_dir, filename)
             self._write_csv_file(full_path, content)
             
-            # Create file URL
             file_url = NSURL.fileURLWithPath_(
                 NSString.alloc().initWithUTF8String_(full_path.encode('utf-8'))
             )
             
-            # Create activity view controller
             items_array = NSArray.arrayWithObject_(file_url)
             activity_vc = UIActivityViewController.alloc() \
                 .initWithActivityItems_applicationActivities_(items_array, None)
             
-            # Show share sheet
             app = UIApplication.sharedApplication()
             root_vc = app.keyWindow().rootViewController()
             
@@ -383,25 +475,25 @@ class CSVExporter:
                     activity_vc, True, None
                 )
                 print("✅ iOS share sheet opened")
+                
+                if success_callback:
+                    success_callback(filename)
+                
                 return True
             
         except Exception as e:
-            print(f"❌ iOS export error: {e}")
-            return self._export_fallback(filename, content, success_callback)
+            error_msg = f"iOS export failed: {str(e)}"
+            print(f"❌ {error_msg}")
+            if error_callback:
+                error_callback(error_msg)
+            return False
     
     def _export_fallback(self, filename: str, content: List[List[str]],
-                        success_callback: Optional[callable]) -> bool:
-        """Fallback export method - save to exports directory.
-        
-        Args:
-            filename: CSV filename
-            content: CSV content rows
-            success_callback: Success callback
-            
-        Returns:
-            True if successful
-        """
+                        success_callback: Optional[callable],
+                        error_callback: Optional[callable]) -> bool:
+        """Fallback export method - save to exports directory."""
         try:
+            os.makedirs(self.exports_dir, exist_ok=True)
             full_path = os.path.join(self.exports_dir, filename)
             self._write_csv_file(full_path, content)
             
@@ -412,16 +504,14 @@ class CSVExporter:
             return True
             
         except Exception as e:
-            print(f"❌ Fallback export error: {e}")
+            error_msg = f"Fallback export failed: {str(e)}"
+            print(f"❌ {error_msg}")
+            if error_callback:
+                error_callback(error_msg)
             return False
     
     def _write_csv_file(self, filepath: str, content: List[List[str]]) -> None:
-        """Write CSV content to file.
-        
-        Args:
-            filepath: Full path to CSV file
-            content: List of rows to write
-        """
+        """Write CSV content to file."""
         with open(filepath, 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
             for row in content:

@@ -1,10 +1,7 @@
-"""Labels management screen for organizing and editing labels.
+"""Labels management screen - SAFE ColorPicker that doesn't crash.
 
-This module provides the interface for:
-- Creating and editing labels
-- Managing label groups
-- Configuring label properties (name, color, description, auto-start/stop)
-- Organizing labels by groups for different activities
+Main fix: Don't modify ColorPicker at all on mobile - just use it as-is.
+The sliders are small but better than crashing!
 """
 
 from typing import Optional
@@ -20,45 +17,42 @@ from kivy.uix.checkbox import CheckBox
 from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle, Ellipse, RoundedRectangle
+from kivy.core.window import Window
+from kivy.clock import Clock
+from kivy.utils import platform
 
 from constants import (ACCENT, DANGER, ICON_ARROW_LEFT, ICON_FOLDER_PLUS,
                       ICON_FONT, ICON_PEN, ICON_PLUS, ICON_TAGS, ICON_TRASH,
                       MUTED, PRIMARY, SURFACE_LIGHT, TEXT)
 from widgets import RButton, create_info_dialog, create_two_button_dialog, create_confirmation_dialog
-#from widgets.custom_widgets import CustomColorPicker as ColorPicker
+from utils import rh, rfs, rp, rs, ResponsiveSize
+
+
+def create_safe_color_picker():
+    """Create a ColorPicker that won't crash - use it as-is.
+    
+    We tried removing sliders but it causes crashes.
+    Better to have small sliders than a crashing app!
+    """
+    picker = ColorPicker()
+    
+    # On mobile, just make the wheel bigger and accept the sliders
+    if platform in ('android', 'ios'):
+        # The wheel will be larger by default in the popup
+        # Don't try to modify the picker structure - too risky!
+        picker.size_hint = (1, 1)
+    
+    return picker
 
 
 class LabelsScreen(Screen):
-    """Screen for managing labels and label groups.
-    
-    Provides a comprehensive interface for organizing labels:
-    - Create/edit/delete individual labels
-    - Manage label groups for different activities
-    - Configure label colors and descriptions
-    - Set up auto-start/stop functionality
-    
-    Attributes:
-        lm: LabelManager instance
-        timer_screen: Reference to TimerScreen for updating laps
-        grid: GridLayout containing label rows
-        group_spinner: Spinner for selecting active group
-    """
+    """Screen for managing labels and label groups."""
     
     def __init__(self, lm, **kwargs):
-        """Initialize the labels screen.
-        
-        Args:
-            lm: LabelManager instance
-            **kwargs: Additional keyword arguments passed to Screen
-        """
         super().__init__(**kwargs)
         self.lm = lm
         self.timer_screen: Optional[Screen] = None
         self._build_ui()
-
-    # ==========================================================================
-    # UI CONSTRUCTION
-    # ==========================================================================
 
     def _build_ui(self) -> None:
         """Build the complete user interface."""
@@ -72,12 +66,13 @@ class LabelsScreen(Screen):
         self._update_labels()
 
     def _create_header(self) -> BoxLayout:
-        """Create header with back button and group management.
-        
-        Returns:
-            BoxLayout containing header widgets
-        """
-        header = BoxLayout(size_hint_y=None, height=56, padding=8, spacing=8)
+        """Create header with back button and group management."""
+        header = BoxLayout(
+            size_hint_y=None, 
+            height=rh('header'), 
+            padding=rp(), 
+            spacing=rs()
+        )
         
         # Background
         with header.canvas.before:
@@ -93,9 +88,9 @@ class LabelsScreen(Screen):
             text=ICON_ARROW_LEFT,
             color=SURFACE_LIGHT,
             size_hint_x=None,
-            width=50,
+            width=rh('header') - rp(),
             font_name=ICON_FONT,
-            font_size="22sp"
+            font_size=rfs('icon')
         )
         back_btn.bind(on_press=self._navigate_back)
         
@@ -103,79 +98,69 @@ class LabelsScreen(Screen):
         title = Label(
             text="Manage Labels",
             color=TEXT,
-            font_size="18sp",
+            font_size=rfs('header'),
             size_hint_x=None,
-            width=140
+            width=rh('header') * 2.5
         )
         
-        # Group controls (spinner + edit + add buttons)
+        # Group controls
         group_controls = self._create_group_controls()
         
         header.add_widget(back_btn)
         header.add_widget(title)
-        header.add_widget(Widget())  # Spacer
+        header.add_widget(Widget())
         header.add_widget(group_controls)
         
         return header
 
     def _create_group_controls(self) -> BoxLayout:
-        """Create the group selector with edit and add buttons.
-        
-        Returns:
-            BoxLayout containing spinner and buttons as a unified component
-        """
+        """Create the group selector with edit and add buttons."""
         group_controls = BoxLayout(
             spacing=0,
             size_hint_x=None,
-            width=210,
+            width=rh('header') * 3.75,
             padding=0
         )
         
-        # Unified background
         with group_controls.canvas.before:
             Color(*SURFACE_LIGHT)
-            group_controls.bg = RoundedRectangle(radius=[12])
+            group_controls.bg = RoundedRectangle(radius=[rp()])
         group_controls.bind(
             pos=lambda w, *_: setattr(w.bg, 'pos', w.pos),
             size=lambda w, *_: setattr(w.bg, 'size', w.size)
         )
         
-        # Group spinner
         self.group_spinner = Spinner(
             text=self.lm.group,
             values=list(self.lm.groups.keys()),
             background_color=(0, 0, 0, 0),
             background_normal='',
             background_down='',
-            padding=[12, 0]
+            padding=[rp(), 0]
         )
         self.group_spinner.bind(text=self._change_group)
         
-        # Separator before edit button
         separator1 = self._create_separator()
         
-        # Edit group button
         edit_group_btn = RButton(
             text=ICON_PEN,
             color=(0, 0, 0, 0),
             size_hint_x=None,
-            width=44,
+            width=rh('button'),
             font_name=ICON_FONT,
-            font_size="16sp"
+            font_size="14sp"
         )
         edit_group_btn.bind(on_press=self._open_edit_group_popup)
         
-        # Separator before add button
         separator2 = self._create_separator()
         
-        # Add group button
         add_group_btn = RButton(
             text=ICON_FOLDER_PLUS,
             color=(0, 0, 0, 0),
             size_hint_x=None,
-            width=44,
+            width=rh('button'),
             font_name=ICON_FONT,
-            font_size="17sp"
+            font_size="15sp"
         )
         add_group_btn.bind(on_press=self._open_add_group_popup)
         
@@ -188,11 +173,7 @@ class LabelsScreen(Screen):
         return group_controls
 
     def _create_separator(self) -> Widget:
-        """Create a vertical separator line.
-        
-        Returns:
-            Widget with vertical line drawn
-        """
+        """Create a vertical separator line."""
         separator = Widget(size_hint_x=None, width=1)
         with separator.canvas.before:
             Color(0.28, 0.28, 0.28, 1)
@@ -204,18 +185,14 @@ class LabelsScreen(Screen):
         return separator
 
     def _create_label_list(self) -> ScrollView:
-        """Create scrollable list of labels.
-        
-        Returns:
-            ScrollView containing label grid
-        """
+        """Create scrollable list of labels."""
         scroll = ScrollView()
         
         self.grid = GridLayout(
             cols=1,
-            spacing=12,
+            spacing=rs() + 4,
             size_hint_y=None,
-            padding=[12, 0]
+            padding=[rp(), 0]
         )
         self.grid.bind(minimum_height=self.grid.setter("height"))
         
@@ -224,32 +201,30 @@ class LabelsScreen(Screen):
         return scroll
 
     def _create_add_button(self) -> BoxLayout:
-        """Create the floating add button for new labels.
+        """Create the floating add button for new labels."""
+        button_size = rh('add_button')
         
-        Returns:
-            BoxLayout containing centered add button
-        """
         plus_btn = RButton(
             text=ICON_PLUS,
             color=PRIMARY,
             size_hint=(None, None),
-            width=72,
-            height=72,
+            width=button_size,
+            height=button_size,
             font_name=ICON_FONT,
-            font_size="36sp"
+            font_size=f"{button_size * 0.1}sp"
         )
         plus_btn.bind(on_press=self._open_add_label_popup)
         
-        container = BoxLayout(size_hint_y=None, height=120, padding=20)
+        container = BoxLayout(
+            size_hint_y=None, 
+            height=rh('add_button_container'), 
+            padding=rp() + 8
+        )
         container.add_widget(Widget())
         container.add_widget(plus_btn)
         container.add_widget(Widget())
         
         return container
-
-    # ==========================================================================
-    # LABEL DISPLAY
-    # ==========================================================================
 
     def _update_labels(self) -> None:
         """Refresh the display of all labels in current group."""
@@ -260,78 +235,73 @@ class LabelsScreen(Screen):
             self.grid.add_widget(row)
 
     def _create_label_row(self, index: int, label: dict) -> BoxLayout:
-        """Create a row displaying a label with edit/delete buttons.
+        """Create a row displaying a label with edit/delete buttons."""
+        row = BoxLayout(
+            size_hint_y=None, 
+            height=rh('label_row'), 
+            padding=rp(), 
+            spacing=rs() + 4
+        )
         
-        Args:
-            index: Index of label in current group
-            label: Label dictionary
-            
-        Returns:
-            BoxLayout containing label information and controls
-        """
-        row = BoxLayout(size_hint_y=None, height=72, padding=12, spacing=12)
+        circle_size = rp() * 3
         
-        # Color indicator
-        color_box = Widget(size_hint_x=None, width=56)
+        color_box = Widget(size_hint_x=None, width=rh('header'))
         with color_box.canvas:
             Color(*label["color"])
-            color_box.circle = Ellipse(size=(36, 36))
+            color_box.circle = Ellipse(size=(circle_size, circle_size))
         
         def update_circle_pos(w, *_):
             w.circle.pos = (
-                w.x + w.width / 2 - 18,
-                w.y + w.height / 2 - 18
+                w.x + w.width / 2 - circle_size / 2,
+                w.y + w.height / 2 - circle_size / 2
             )
         
         color_box.bind(pos=update_circle_pos, size=update_circle_pos)
         
-        # Label name
         name_label = Label(
             text=label["name"],
             color=TEXT,
-            font_size="17sp",
+            font_size="14sp",
             halign="left",
             valign="middle"
         )
         name_label.bind(size=name_label.setter('text_size'))
         
-        # Description
         desc_label = Label(
             text=label.get("desc", ""),
             color=MUTED,
             size_hint_x=0.3,
+            font_size="12sp",
             halign="left",
             valign="middle"
         )
         desc_label.bind(size=desc_label.setter('text_size'))
         
-        # Edit button (disabled for default label)
         if not label.get("is_default", False):
             edit_btn = RButton(
                 text=ICON_PEN,
                 color=PRIMARY,
                 size_hint_x=None,
-                width=50,
+                width=rh('button'),
                 font_name=ICON_FONT,
-                font_size="18sp"
+                font_size="15sp"
             )
             edit_btn.bind(on_press=lambda _, i=index: self._open_edit_label_popup(i))
         else:
-            edit_btn = Widget(size_hint_x=None, width=50)
+            edit_btn = Widget(size_hint_x=None, width=rh('button'))
         
-        # Delete button (disabled for default label)
         if not label.get("is_default", False):
             del_btn = RButton(
                 text=ICON_TRASH,
                 color=DANGER,
                 size_hint_x=None,
-                width=50,
+                width=rh('button'),
                 font_name=ICON_FONT,
-                font_size="18sp"
+                font_size="15sp"
             )
             del_btn.bind(on_press=lambda _, i=index: self._delete_label(i))
         else:
-            del_btn = Widget(size_hint_x=None, width=50)
+            del_btn = Widget(size_hint_x=None, width=rh('button'))
         
         row.add_widget(color_box)
         row.add_widget(name_label)
@@ -341,19 +311,10 @@ class LabelsScreen(Screen):
         
         return row
 
-    # ==========================================================================
-    # LABEL OPERATIONS
-    # ==========================================================================
-
     def _delete_label(self, index: int) -> None:
-        """Delete a label from the current group.
-        
-        Args:
-            index: Index of label to delete
-        """
+        """Delete a label from the current group."""
         label = self.lm.groups[self.lm.group][index]
         
-        # Cannot delete default label
         if not label.get("is_default", False):
             del self.lm.groups[self.lm.group][index]
             self.lm.idx = 0
@@ -361,68 +322,94 @@ class LabelsScreen(Screen):
             self.lm.save()
 
     def _open_add_label_popup(self, *args) -> None:
-        """Open popup for creating a new label."""
+        """Open popup for creating a new label - SAFE version."""
+        # Main container
+        content = BoxLayout(orientation="vertical", spacing=rs(), padding=rp())
+        
+        # Name
+        content.add_widget(Label(
+            text="Name:",
+            color=TEXT,
+            size_hint_y=None,
+            height=rp() * 2,
+            font_size="13sp"
+        ))
         name_input = TextInput(
             hint_text="Label Name",
             size_hint_y=None,
-            height=40
+            height=rh('input'),
+            font_size="14sp"
         )
+        content.add_widget(name_input)
+        
+        # Description
+        content.add_widget(Label(
+            text="Description:",
+            color=TEXT,
+            size_hint_y=None,
+            height=rp() * 2,
+            font_size="13sp"
+        ))
         desc_input = TextInput(
             hint_text="Description (optional)",
             size_hint_y=None,
-            height=40
+            height=rh('input'),
+            font_size="14sp"
         )
+        content.add_widget(desc_input)
         
-        color_picker = ColorPicker()
-        
-        # Auto start/stop checkbox
+        # Checkbox
         checkbox_container = BoxLayout(
             size_hint_y=None,
-            height=40,
-            spacing=12,
-            padding=[0, 8]
+            height=rh('input'),
+            spacing=rs(),
+            padding=[0, rp()]
         )
-        auto_check = CheckBox(size_hint_x=None, width=40)
+        auto_check = CheckBox(size_hint_x=None, width=rh('input'))
         checkbox_label = Label(
             text="Auto Start/Stop after lap",
             color=TEXT,
+            font_size="13sp",
             halign="left",
             valign="middle"
         )
         checkbox_label.bind(size=checkbox_label.setter('text_size'))
         checkbox_container.add_widget(auto_check)
         checkbox_container.add_widget(checkbox_label)
-        
-        add_btn = RButton(text="Add", color=ACCENT, size_hint_y=None, height=50)
-        
-        content = BoxLayout(orientation="vertical", spacing=12, padding=12)
-        content.add_widget(Label(
-            text="Name:",
-            color=TEXT,
-            size_hint_y=None,
-            height=25,
-            halign="left",
-            valign="middle"
-        ))
-        content.add_widget(name_input)
-        content.add_widget(Label(
-            text="Description:",
-            color=TEXT,
-            size_hint_y=None,
-            height=25
-        ))
-        content.add_widget(desc_input)
         content.add_widget(checkbox_container)
+        
+        # ColorPicker - Safe version (don't modify it!)
         content.add_widget(Label(
             text="Color:",
             color=TEXT,
             size_hint_y=None,
-            height=25
+            height=rp() * 2,
+            font_size="13sp"
         ))
-        content.add_widget(color_picker)
+        
+        # Create picker in a scrollable container for mobile
+        picker_container = ScrollView(size_hint=(1, 1))
+        color_picker = create_safe_color_picker()
+        picker_container.add_widget(color_picker)
+        content.add_widget(picker_container)
+        
+        # Add button
+        add_btn = RButton(
+            text="Add", 
+            color=ACCENT, 
+            size_hint_y=None, 
+            height=rh('button'),
+            font_size=rfs('button')
+        )
         content.add_widget(add_btn)
         
-        popup = Popup(title="New Label", content=content, size_hint=(0.95, 0.85))
+        # Popup with sufficient size
+        popup = Popup(
+            title="New Label", 
+            content=content,
+            size_hint=(0.95, 0.9),
+            title_size='15sp'
+        )
         
         def add_label(*_):
             if name_input.text:
@@ -442,14 +429,9 @@ class LabelsScreen(Screen):
         popup.open()
 
     def _open_edit_label_popup(self, index: int) -> None:
-        """Open popup for editing an existing label.
-        
-        Args:
-            index: Index of label to edit
-        """
+        """Open popup for editing an existing label - SAFE version."""
         label = self.lm.groups[self.lm.group][index]
         
-        # Cannot edit default label
         if label.get("is_default", False):
             dialog = create_info_dialog(
                 title="Cannot Edit",
@@ -458,69 +440,97 @@ class LabelsScreen(Screen):
             dialog.open()
             return
         
+        # Main container
+        content = BoxLayout(orientation="vertical", spacing=rs(), padding=rp())
+        
+        # Name
+        content.add_widget(Label(
+            text="Name:",
+            color=TEXT,
+            size_hint_y=None,
+            height=rp() * 2,
+            font_size="13sp"
+        ))
         name_input = TextInput(
             text=label["name"],
             size_hint_y=None,
-            height=40
+            height=rh('input'),
+            font_size="14sp"
         )
+        content.add_widget(name_input)
+        
+        # Description
+        content.add_widget(Label(
+            text="Description:",
+            color=TEXT,
+            size_hint_y=None,
+            height=rp() * 2,
+            font_size="13sp"
+        ))
         desc_input = TextInput(
             text=label.get("desc", ""),
             size_hint_y=None,
-            height=40
+            height=rh('input'),
+            font_size="14sp"
         )
+        content.add_widget(desc_input)
         
-        color_picker = ColorPicker(color=label["color"])
-        
-        # Auto start/stop checkbox
+        # Checkbox
         checkbox_container = BoxLayout(
             size_hint_y=None,
-            height=40,
-            spacing=12,
-            padding=[0, 8]
+            height=rh('input'),
+            spacing=rs(),
+            padding=[0, rp()]
         )
         auto_check = CheckBox(
             active=label.get("auto_startstop", False),
             size_hint_x=None,
-            width=40
+            width=rh('input')
         )
         checkbox_label = Label(
             text="Auto Start/Stop after lap",
             color=TEXT,
+            font_size="13sp",
             halign="left",
             valign="middle"
         )
         checkbox_label.bind(size=checkbox_label.setter('text_size'))
         checkbox_container.add_widget(auto_check)
         checkbox_container.add_widget(checkbox_label)
-        
-        save_btn = RButton(text="Save", color=ACCENT, size_hint_y=None, height=50)
-        
-        content = BoxLayout(orientation="vertical", spacing=12, padding=12)
-        content.add_widget(Label(
-            text="Name:",
-            color=TEXT,
-            size_hint_y=None,
-            height=25
-        ))
-        content.add_widget(name_input)
-        content.add_widget(Label(
-            text="Description:",
-            color=TEXT,
-            size_hint_y=None,
-            height=25
-        ))
-        content.add_widget(desc_input)
         content.add_widget(checkbox_container)
+        
+        # ColorPicker - Safe version
         content.add_widget(Label(
             text="Color:",
             color=TEXT,
             size_hint_y=None,
-            height=25
+            height=rp() * 2,
+            font_size="13sp"
         ))
-        content.add_widget(color_picker)
+        
+        picker_container = ScrollView(size_hint=(1, 1))
+        color_picker = create_safe_color_picker()
+        color_picker.color = label["color"]
+        picker_container.add_widget(color_picker)
+        content.add_widget(picker_container)
+        
+        # Save button
+        save_btn = RButton(
+            text="Save", 
+            color=ACCENT, 
+            size_hint_y=None, 
+            height=rh('button'),
+            font_size=rfs('button')
+        )
         content.add_widget(save_btn)
         
-        popup = Popup(title="Edit Label", content=content, size_hint=(0.95, 0.85))
+        # Popup with sufficient size
+        popup = Popup(
+            title="Edit Label", 
+            content=content,
+            size_hint=(0.95, 0.9),
+            title_size='15sp'
+        )
         
         def save_label(*_):
             if name_input.text:
@@ -531,7 +541,6 @@ class LabelsScreen(Screen):
                 self._update_labels()
                 self.lm.save()
                 
-                # Notify timer screen to update affected laps
                 if self.timer_screen:
                     self.timer_screen.refresh_laps_for_label(name_input.text)
                     self.timer_screen._save_to_storage()
@@ -540,17 +549,8 @@ class LabelsScreen(Screen):
         save_btn.bind(on_press=save_label)
         popup.open()
 
-    # ==========================================================================
-    # GROUP OPERATIONS
-    # ==========================================================================
-
     def _change_group(self, instance, value: str) -> None:
-        """Change the active label group.
-        
-        Args:
-            instance: Spinner instance (unused)
-            value: Selected group name
-        """
+        """Change the active label group."""
         self.lm.group = value
         self.lm.idx = 0
         self.lm.save()
@@ -561,18 +561,26 @@ class LabelsScreen(Screen):
         name_input = TextInput(
             hint_text="Group Name",
             size_hint_y=None,
-            height=40
+            height=rh('input'),
+            font_size="14sp"
         )
-        add_btn = RButton(text="Create", color=ACCENT, size_hint_y=None, height=50)
+        add_btn = RButton(
+            text="Create", 
+            color=ACCENT, 
+            size_hint_y=None, 
+            height=rh('button'),
+            font_size=rfs('button')
+        )
         
-        content = BoxLayout(orientation="vertical", spacing=12, padding=12)
+        content = BoxLayout(orientation="vertical", spacing=rs(), padding=rp())
         content.add_widget(name_input)
         content.add_widget(add_btn)
         
         popup = Popup(
             title="New Label Group",
             content=content,
-            size_hint=(0.8, 0.2)
+            size_hint=(0.8, 0.2),
+            title_size='15sp'
         )
         
         def add_group(*_):
@@ -589,7 +597,6 @@ class LabelsScreen(Screen):
         """Open popup for editing/deleting current group."""
         current_group = self.lm.group
         
-        # Cannot rename default group
         if current_group == "Default":
             dialog = create_info_dialog(
                 title="Cannot Rename",
@@ -611,12 +618,7 @@ class LabelsScreen(Screen):
         dialog.open()
 
     def _rename_group(self, old_name: str, new_name: str) -> None:
-        """Rename a label group.
-        
-        Args:
-            old_name: Current group name
-            new_name: New group name
-        """
+        """Rename a label group."""
         new_name = new_name.strip()
         if new_name and new_name != old_name:
             if self.lm.rename_group(old_name, new_name):
@@ -625,11 +627,7 @@ class LabelsScreen(Screen):
                 self._change_group(None, new_name)
 
     def _confirm_delete_group(self, group_name: str) -> None:
-        """Show confirmation dialog before deleting a group.
-        
-        Args:
-            group_name: Name of group to delete
-        """
+        """Show confirmation dialog before deleting a group."""
         dialog = create_confirmation_dialog(
             title="Confirm Delete",
             message=f"Delete group '{group_name}'?\n\nAll labels in this group will be lost!",
@@ -639,19 +637,11 @@ class LabelsScreen(Screen):
         dialog.open()
 
     def _delete_group(self, group_name: str) -> None:
-        """Delete a label group.
-        
-        Args:
-            group_name: Name of group to delete
-        """
+        """Delete a label group."""
         if self.lm.delete_group(group_name):
             self.group_spinner.values = list(self.lm.groups.keys())
             self.group_spinner.text = self.lm.group
             self._change_group(None, self.lm.group)
-
-    # ==========================================================================
-    # NAVIGATION
-    # ==========================================================================
 
     def _navigate_back(self, *args) -> None:
         """Navigate back to timer screen."""

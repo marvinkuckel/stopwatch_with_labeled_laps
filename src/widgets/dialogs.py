@@ -1,4 +1,4 @@
-"""Reusable dialog and popup factory functions.
+"""Reusable dialog and popup factory functions - RESPONSIVE VERSION.
 
 This module provides factory functions for creating common dialog types
 to avoid code duplication across screens.
@@ -12,6 +12,7 @@ from kivy.uix.textinput import TextInput
 
 from constants import TEXT, ACCENT, DANGER, SURFACE_LIGHT, PRIMARY
 from .buttons import RButton
+from utils import rh, rp, rs
 
 
 def create_text_input_dialog(
@@ -41,7 +42,7 @@ def create_text_input_dialog(
         text=initial_text,
         hint_text=hint_text,
         size_hint_y=None,
-        height=40,
+        height=rh('input'),
         multiline=multiline
     )
     
@@ -49,17 +50,17 @@ def create_text_input_dialog(
         text=save_button_text,
         color=ACCENT,
         size_hint_y=None,
-        height=50
+        height=rh('button')
     )
     
-    content = BoxLayout(orientation="vertical", spacing=12, padding=12)
+    content = BoxLayout(orientation="vertical", spacing=rs(), padding=rp())
     
     if prompt:
         prompt_label = Label(
             text=prompt,
             color=TEXT,
             size_hint_y=None,
-            height=30
+            height=rp() * 2.5
         )
         content.add_widget(prompt_label)
     
@@ -100,7 +101,7 @@ def create_confirmation_dialog(
     Returns:
         Configured Popup instance (not yet opened)
     """
-    content = BoxLayout(orientation="vertical", spacing=12, padding=12)
+    content = BoxLayout(orientation="vertical", spacing=rs(), padding=rp())
     
     message_label = Label(
         text=message,
@@ -112,7 +113,7 @@ def create_confirmation_dialog(
     content.add_widget(message_label)
     
     # Button container
-    buttons = BoxLayout(size_hint_y=None, height=50, spacing=12)
+    buttons = BoxLayout(size_hint_y=None, height=rh('button'), spacing=rs())
     
     cancel_btn = RButton(text=cancel_text, color=SURFACE_LIGHT)
     confirm_btn = RButton(
@@ -149,7 +150,7 @@ def create_info_dialog(title: str, message: str, button_text: str = "OK") -> Pop
     Returns:
         Configured Popup instance (not yet opened)
     """
-    content = BoxLayout(orientation="vertical", spacing=12, padding=12)
+    content = BoxLayout(orientation="vertical", spacing=rs(), padding=rp())
     
     message_label = Label(
         text=message,
@@ -160,7 +161,12 @@ def create_info_dialog(title: str, message: str, button_text: str = "OK") -> Pop
     message_label.bind(size=message_label.setter('text_size'))
     content.add_widget(message_label)
     
-    ok_btn = RButton(text=button_text, color=PRIMARY, size_hint_y=None, height=50)
+    ok_btn = RButton(
+        text=button_text, 
+        color=PRIMARY, 
+        size_hint_y=None, 
+        height=rh('button')
+    )
     content.add_widget(ok_btn)
     
     popup = Popup(title=title, content=content, size_hint=(0.7, 0.25))
@@ -199,11 +205,11 @@ def create_two_button_dialog(
     input_field = TextInput(
         text=input_text,
         size_hint_y=None,
-        height=40,
+        height=rh('input'),
         multiline=False
     )
     
-    buttons = BoxLayout(size_hint_y=None, height=50, spacing=12)
+    buttons = BoxLayout(size_hint_y=None, height=rh('button'), spacing=rs())
     
     left_btn = RButton(
         text=left_button_text,
@@ -214,12 +220,12 @@ def create_two_button_dialog(
     buttons.add_widget(left_btn)
     buttons.add_widget(right_btn)
     
-    content = BoxLayout(orientation="vertical", spacing=12, padding=12)
+    content = BoxLayout(orientation="vertical", spacing=rs(), padding=rp())
     content.add_widget(Label(
         text=prompt,
         color=TEXT,
         size_hint_y=None,
-        height=30
+        height=rp() * 2.5
     ))
     content.add_widget(input_field)
     content.add_widget(buttons)

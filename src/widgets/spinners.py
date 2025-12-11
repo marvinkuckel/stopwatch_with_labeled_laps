@@ -1,4 +1,4 @@
-"""Label selection dropdown widget.
+"""Label selection dropdown widget - RESPONSIVE VERSION.
 
 This module provides a custom spinner/dropdown widget for selecting
 labels with visual color indicators.
@@ -13,6 +13,7 @@ from kivy.uix.dropdown import DropDown
 from kivy.graphics import Color, Rectangle, Ellipse
 
 from constants import SURFACE_LIGHT, TEXT
+from utils import rh, rp, rs
 
 
 class LabelSpinner(ButtonBehavior, BoxLayout):
@@ -44,10 +45,10 @@ class LabelSpinner(ButtonBehavior, BoxLayout):
         super().__init__(**kwargs)
         
         # BoxLayout configuration
-        self.spacing = 8
-        self.padding = [12, 0]
+        self.spacing = rs()
+        self.padding = [rp(), 0]
         self.size_hint_y = None
-        self.height = 44
+        self.height = kwargs.get('height', rh('button'))
         
         # Draw background
         with self.canvas.before:
@@ -104,10 +105,10 @@ class LabelSpinner(ButtonBehavior, BoxLayout):
             pass
         
         btn = OptionButton(
-            spacing=8,
-            padding=[12, 0],
+            spacing=rs(),
+            padding=[rp(), 0],
             size_hint_y=None,
-            height=44
+            height=rh('button')
         )
         
         # Draw button background
@@ -121,15 +122,16 @@ class LabelSpinner(ButtonBehavior, BoxLayout):
         
         # Add color dot for non-default labels
         if not label["is_default"]:
-            dot = Widget(size_hint_x=None, width=28)
+            dot_size = rp() * 1.5
+            dot = Widget(size_hint_x=None, width=rp() * 2.5)
             with dot.canvas:
                 Color(*label["color"])
-                dot_circle = Ellipse(size=(18, 18))
+                dot_circle = Ellipse(size=(dot_size, dot_size))
             
             def update_dot_pos(widget, *args):
                 dot_circle.pos = (
-                    widget.x + widget.width / 2 - 9, 
-                    widget.y + widget.height / 2 - 9
+                    widget.x + widget.width / 2 - dot_size / 2, 
+                    widget.y + widget.height / 2 - dot_size / 2
                 )
             
             dot.bind(pos=update_dot_pos, size=update_dot_pos)
@@ -157,15 +159,16 @@ class LabelSpinner(ButtonBehavior, BoxLayout):
         
         # Add color dot for non-default labels
         if not self.lap["lbl"]["is_default"]:
-            dot = Widget(size_hint_x=None, width=28)
+            dot_size = rp() * 1.5
+            dot = Widget(size_hint_x=None, width=rp() * 2.5)
             with dot.canvas:
                 Color(*self.lap["lbl"]["color"])
-                display_circle = Ellipse(size=(18, 18))
+                display_circle = Ellipse(size=(dot_size, dot_size))
             
             def update_display_dot_pos(widget, *args):
                 display_circle.pos = (
-                    widget.x + widget.width / 2 - 9, 
-                    widget.y + widget.height / 2 - 9
+                    widget.x + widget.width / 2 - dot_size / 2, 
+                    widget.y + widget.height / 2 - dot_size / 2
                 )
             
             dot.bind(pos=update_display_dot_pos, size=update_display_dot_pos)

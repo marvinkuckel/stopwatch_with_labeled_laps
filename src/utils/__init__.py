@@ -1,18 +1,20 @@
-"""Utility functions and helpers for the Stopwatch application.
+"""Utilities package initialization.
 
-This package contains various utility modules for:
-- Time formatting
-- UI helpers (window management)
-- Font loading
-- CSV export functionality
+Exports commonly used utility functions and classes.
 """
 
 from .formatting import format_time
 from .font_loader import download_font_awesome
 from .export import CSVExporter
+from .responsive import ResponsiveSize, rh, rfs, rp, rs
 
 __all__ = [
     'format_time',
     'download_font_awesome',
     'CSVExporter',
+    'ResponsiveSize',
+    'rh',
+    'rfs', 
+    'rp',
+    'rs'
 ]

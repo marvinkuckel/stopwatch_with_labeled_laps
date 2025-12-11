@@ -16,6 +16,16 @@ from .dialogs import (
     create_info_dialog,
     create_two_button_dialog
 )
+from .custom_widgets import (
+    TouchableSlider,
+    create_mobile_color_picker
+)
+from .slider_patch import (
+    _patched_slider_init,
+    _patched_on_touch_down,
+    _patched_on_touch_move,
+    apply_slider_patches
+)
 
 __all__ = [
     'RButton',
@@ -25,4 +35,10 @@ __all__ = [
     'create_confirmation_dialog',
     'create_info_dialog',
     'create_two_button_dialog',
+    'TouchableSlider',
+    'create_mobile_color_picker',
+    '_patched_slider_init',
+    '_patched_on_touch_down',
+    '_patched_on_touch_move',
+    'apply_slider_patches'
 ]
